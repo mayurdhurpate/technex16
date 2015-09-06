@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from .models import Greeting
+from .models import Greeting, User
 
 # Create your views here.
 def index(request):
@@ -24,6 +24,36 @@ def signup_email(request):
         e=User.objects.filter(email=email)
         if e:
             return HttpResponse("Email already registered")
-        else
+        else:
             return HttpResponse("DO NOT EXIST")
 
+def signup(request):
+	if request.method == "GET":
+		return render(request, 'signup.html')
+	if request.method == "POST":
+		email = request.POST.get('email', '')
+		name = request.POST.get('name', '')
+		phone = request.POST.get('mobile','')
+		password = request.POST.get('password', '')
+
+		if email and name and phone and password:
+			user = User(
+				name=name,
+				email=email,
+				phone=phone,
+				password=password,
+				college='IIT BHU',
+				year = '2',
+				city= 'Varanasi',
+			)
+			user.save()
+			return redirect('/')
+		else:
+			return redirect('/signup')
+
+def display(request):
+	a = User.objects.all()
+	s = ""
+	for item in a:
+		s += '<p>' + item.name + '</p><br>'
+	return HttpResponse(s)

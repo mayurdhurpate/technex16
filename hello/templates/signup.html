@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+	    <meta charset="UTF-8">
+      <title>Technex-SignUp</title>
+    </head>
+<body>
+<form role="form" method="post" action= "/signup/" id="post-form">
+    {% csrf_token %}
+    <h1> SignUp </h1>
+  <input class="form-control" placeholder="Email" id="id_email" maxlength="254"  name="email" type="text" required autofocus=""/>
+  <input class="form-control" placeholder="Name" id="id_name" maxlength="254"  name="name" type="text" required />
+	<input class="form-control" placeholder="Mobile No" id="id_mobile" name="mobile" type="" required/>
+	<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required />
+    <button type="submit" value="Submit" id ="signup_button"/>Proceed</button>
+</form>
+</body>
+<script src="{% static "js/signup-ajax.js" %}"> </script>
+</html>

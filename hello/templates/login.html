@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+	    <meta charset="UTF-8">
+      <title>Technex-Login</title>
+    </head>
+<body>
+<form role="form" method="post" action= "/login/">
+    {% csrf_token %}
+    <h1> Login </h1>
+	<input class="form-control" placeholder="Email" id="id_email" maxlength="255"  name="email" type="text" required autofocus=""/>
+	<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required />
+    <button  type="submit" value="Submit"/>Sign in</button>
+    <p> Not a member? <a href="{% url 'register' %}"> SignUp! </a></p>
+</form>
+</body>
+<script src="{% static "js/login-ajax.js" %}"> </script>
+</html>

@@ -6,7 +6,7 @@ class Greeting(models.Model):
 
 class User(models.Model):
 	name = models.CharField(max_length=100)
-	phone = models.PositiveIntegerField()
+	phone = models.CharField(max_length=20)
 	email = models.EmailField(max_length=100)
 	college = models.CharField(max_length=100)
 	year = models.IntegerField()

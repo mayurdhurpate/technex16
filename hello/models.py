@@ -9,7 +9,7 @@ class User(models.Model):
 	phone = models.CharField(max_length=20)
 	email = models.EmailField(max_length=100)
 	college = models.CharField(max_length=100)
-	year = models.IntegerField()
+	year = models.CharField(max_length=5)
 	city = models.CharField(max_length=30)
 	password = models.CharField(max_length=200)
 

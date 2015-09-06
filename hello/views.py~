@@ -27,4 +27,3 @@ def signup_email(request):
         else
             return HttpResponse("DO NOT EXIST")
 
-

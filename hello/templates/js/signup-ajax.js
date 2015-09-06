@@ -1,5 +1,4 @@
 $(document).ready(function(){
-  alert("Hello");
   var email_error,email_error_msg,email;
   var mobile,mobile_error,mobile_error_msg;
   var password,password_error,password_error_msg;
@@ -87,7 +86,6 @@ $(document).ready(function(){
       {
         form_error=true;
         form_error_msg="Please correct the errors";
-        $('#form_error_msg').html(form_error_msg);
         document.getElementById("signup_button").disabled = true;
       }
       else {

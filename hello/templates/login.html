@@ -5,13 +5,16 @@
       <title>Technex-Login</title>
     </head>
 <body>
-<form role="form" method="post" action= "/login/">
+<form role="form" method="post" action= "/login/" id='post-form'>
     {% csrf_token %}
     <h1> Login </h1>
+  <div>
 	<input class="form-control" placeholder="Email" id="id_email" maxlength="255"  name="email" type="text" required autofocus=""/>
+  <span id="email_error_msg"></span></div>
 	<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required />
-    <button  type="submit" value="Submit"/>Sign in</button>
-    <p> Not a member? <a href="{% url 'register' %}"> SignUp! </a></p>
+  <div id ='form_error_msg'></div>
+    <button  type="submit" value="Submit" id="login_button"/>Sign in</button>
+    <p> Not a member? <a href="{% url 'signup' %}"> SignUp! </a></p>
 </form>
 </body>
 <script src="{% static "js/login-ajax.js" %}"> </script>

@@ -1,3 +1,4 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
     <head lang="en">
@@ -13,9 +14,11 @@
   <span id="email_error_msg"></span></div>
 	<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required />
   <div id ='form_error_msg'></div>
-    <button  type="submit" value="Submit" id="login_button"/>Sign in</button>
     <p> Not a member? <a href="{% url 'signup' %}"> SignUp! </a></p>
 </form>
+<button  type="submit" value="Submit" id="login_button"/>Sign in</button>
 </body>
+<script src="{% static "js/jquery.min.js" %}"> </script>
+<script src="{% static "js/jquery-1.11.3.min.js" %}"> </script>
 <script src="{% static "js/login-ajax.js" %}"> </script>
 </html>

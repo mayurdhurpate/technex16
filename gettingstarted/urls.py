@@ -12,7 +12,10 @@ urlpatterns = patterns('',
 
     url(r'^$', hello.views.index, name='index'),
     url(r'^db', hello.views.db, name='db'),
-    url(r'^signup', hello.views.signup, name='signup'),
+    url(r'^signup/$', hello.views.signup, name='signup'),
     url(r'^display', hello.views.display, name='display'),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^signup_email/$',hello.views.signup_email,name='signup_email'),
+    url(r'^login_email/$',hello.views.login_email,name='login_email'),
+    url(r'^login/$',hello.views.login,name='login'),
 )

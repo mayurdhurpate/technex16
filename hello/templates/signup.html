@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html>
     <head lang="en">
 	    <meta charset="UTF-8">
@@ -8,13 +9,20 @@
 <form role="form" method="post" action= "/signup/" id="post-form">
     {% csrf_token %}
     <h1> SignUp </h1>
+    <div>
   <input class="form-control" placeholder="Email" id="id_email" maxlength="254"  name="email" type="text" required autofocus=""/>
-  <input class="form-control" placeholder="Name" id="id_name" maxlength="254"  name="name" type="text" required />
-	<input class="form-control" placeholder="Mobile No" id="id_mobile" name="mobile" type="" required/>
-	<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required />
+  <span id="email_error_msg"></span></div>
+  <div>
+  <input class="form-control" placeholder="Name" id="id_name" maxlength="254"  name="name" type="text" required /></div>
+  <div>
+	<input class="form-control" placeholder="Mobile No" id="id_mobile" name="mobile" type="" required/><span id="mobile_error_msg"></span></div>
+<div>	<input type="password" class="form-control" placeholder="Password" id="id_password" name="password" required /><span id="password_error_msg"></span> </div>
+    <div id ='form_error_msg'></div>
     <button type="submit" value="Submit" id ="signup_button"/>Proceed</button>
 </form>
 </body>
-{% load staticfiles %}
+<script src="{% static "js/jquery.min.js" %}"> </script>
+<script src="{% static "js/jquery-1.11.3.min.js" %}"> </script>
 <script src="{% static "js/signup-ajax.js" %}"> </script>
+
 </html>

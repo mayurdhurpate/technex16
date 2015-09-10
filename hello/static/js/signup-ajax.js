@@ -14,8 +14,26 @@ function getCookie(name) {
     return cookieValue;
 }
 
+var delete_cookie = function(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
+
+function createCookie(name,value,days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+}
 
 $(document).ready(function(){
+  delete_cookie('city');
+  delete_cookie('year');
+  delete_cookie('college');
+  delete_cookie('email');
+  delete_cookie('name');
   var email_error,email_msg,email;
   var mobile,mobile_error,mobile_msg;
   var password1,password_error,password_error_msg;
@@ -38,8 +56,9 @@ $(document).ready(function(){
     function take_details(email)
     {
       //alert('Hello');
-      document.cookie="city=Varanasi";
-      document.cookie="college=IIT(BHU) Varanasi";
+      //document.cookie="city="+city+ "; path=/;";
+      createCookie('city','Varanasi',100);
+      createCookie('college','IIT(BHU) Varanasi',100);
       for (i=0;i<email.length;i++)
       {
         if (email.charAt(i)=='@')
@@ -51,7 +70,7 @@ $(document).ready(function(){
         }
       }
       year = 6 - no_str;
-      document.cookie="year="+ year + ";" ;
+      createCookie('year',year,100) ;
     }
     function check_form()
     {
@@ -177,8 +196,7 @@ $(document).ready(function(){
                       }
 
                   });*/
-                  document.cookie="email=" + email + ";" ;
-                  document.cookie="name="+ name + ";" ;
-
+                  createCookie('email',email,100);
+                  createCookie('name',name,100);
               });
 });

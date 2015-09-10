@@ -1,3 +1,4 @@
+var email_error;
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {
@@ -13,8 +14,31 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+function createCookie(name,value,days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function check_form()
+{
+  if (email_error)
+  {
+    form_error=true;
+    form_error_msg="Please correct the errors";
+    //$('#form_error_msg').html(form_error_msg);
+    document.getElementById("login_button").disabled = true;
+  }
+  else {
+    document.getElementById("login_button").disabled = false;
+  }
+}
 $(document).ready(function(){
-  var email_error,email_msg,email;
+  var email_error=false; var email_msg,email;
   var password1,password_error,password_error_msg;
   var login_error,login_msg;
   var csrftoken = getCookie('csrftoken');
@@ -26,6 +50,11 @@ $(document).ready(function(){
       }
   $('#id_email').keyup(function(){
     email= $(this).val();
+    check_form();
+  });
+
+  $('#id_password').keyup(function(){
+    password1 = $(this).val();
     if (validateEmail(email))
     {
       $.ajax({
@@ -57,10 +86,7 @@ $(document).ready(function(){
       email_error_msg = "Not a valid email";
     }
     $('#email_error_msg').html(email_msg);
-  });
-
-  $('#id_password').keyup(function(){
-    password = $(this).val();
+    check_form();
   });
 
   $('#login_button').on('click',function(data){
@@ -68,37 +94,6 @@ $(document).ready(function(){
       {
         login_error=true;
         login_msg="Please correct the email";
-      }
-      else {
-        $.ajax({
-                          url : "/login/",
-                          type : "POST",
-                          dataType: "json",
-                          data : {
-                              email : email,
-                              'csrfmiddlewaretoken':csrftoken,
-                              password : password
-                              },
-                          success : function(json) {
-                            if(json.response == "Wrong password"){
-                              login_error=true;
-                              login_msg=json.response;
-                            }
-                            else {
-                              login_error = false;
-                              login_msg = json.response;
-                            }
-                          },
-                          error : function(xhr,errmsg,err) {
-                              alert(xhr.status + ": " + xhr.responseText);
-                              //$('#email_error_msg').html(xhr.responseText);
-                          }
-                      });
-              }
-      if (login_error)
-      {
-        $('#form_error_msg').html(login_msg);
-        document.getElementById("login_button").disabled = true;
       }
     });
 });

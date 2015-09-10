@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse,HttpResponseRedirect
 from hello.models import User
 from .models import Greeting
 import json
@@ -45,9 +45,26 @@ def signup(request):
         mobile=request.POST['mobile']
         #print "hello"
         u=User.objects.get_or_create(name=name,email=email,phone=mobile,password=password,city='Varanasi',college='IIT(BHU) Varanasi',year='2')
-        return HttpResponse(json.dumps({'response':'Registered'}),content_type='application/javascript')
+        return HttpResponseRedirect('/signup2/')
     else:
         return render(request,'signup.html',{})
+
+def signup2(request):
+    if request.method=="POST":
+        email=request.POST["email"]
+        city=request.POST["city"]
+        college=request.POST["college"]
+        year=request.POST["year"]
+        u=User.objects.get(email=email)
+        u.city=city
+        u.college=college
+        u.year=year
+        u.save()
+        #index(request)
+        return HttpResponse(json.dumps({'reponse':'Registered'}), content_type='application/javascript')
+        return HttpResponseRedirect('/')
+    else:
+        return render(request,'signup2.html',{'response':'Registered'})
 
 def display(request):
     pass
@@ -74,13 +91,13 @@ def login(request):
         #print "hello here"
         email=request.POST["email"]
         password=request.POST['password']
-        u=User.objects.filter(email=email)
+        u=User.objects.get(email=email)
         response_dict = {}
         if u.password==password:
             return HttpResponseRedirect('/')
         else:
-            response_dict.update({'response': "Wrong password",'login':login})
             login=False
-            return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+            response_dict.update({'response': "Wrong password",'login':login})
+            return render(request,'login.html',response_dict)
     else:
         return render(request,'login.html',{})

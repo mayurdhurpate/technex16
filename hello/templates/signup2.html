@@ -1,6 +1,6 @@
-<!DOCTYPE html>
+<!DOCTYPE <br/>html>
 {% load staticfiles %}
-<html>
+<html>5<br/>
     <head lang="en">
 	    <meta charset="UTF-8">
       <title>Technex-SignUp</title>
@@ -12,10 +12,16 @@
     <input class="form-control" placeholder="City" id="id_city" maxlength="254"  name="city" type="text" required autofocus=""/>
     <span id="city_msg"></span></div>
     <div>
-    <input class="form-control" placeholder="College" id="id_college" maxlength="254"  name="city" type="text" required autofocus=""/>
-    <span id="college_msg"></span></div>
+    <input id="id_bhu_college" name="college" type="radio" value="IIT(BHU) Varanasi"/>IIT(BHU) Varanasi<br/>
+    <input id="id_other_radio_college" name="college" type="radio" value="Other" />Other
+    <input id="id_other_text_college" type="text" name="college"/>
+    <span id="college_msg"></span></div><br/>
     <div>
-    <input class="form-control" placeholder="Year" id="id_year" maxlength="254"  name="year" type="text" required autofocus=""/>
+    <input id="id_year" id='id_1' name="year" type="radio"/>1<br/>
+    <input id="id_year" id='id_2' name="year" type="radio"/>2<br/>
+    <input id="id_year" id='id_3' name="year" type="radio"/>3<br/>
+    <input id="id_year" id='id_4' name="year" type="radio"/>4<br/>
+    <input id="id_year" id='id_5' name="year" type="radio"/>5<br/>
     <span id="year_msg"></span></div>
 
 

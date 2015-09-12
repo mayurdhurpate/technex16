@@ -45,10 +45,14 @@ var college = getCookie('college');
 var year = getCookie('year');
 if(city)
 {
-  $('#id_college').value=college;
-  $('#id_city').value=city;
-  $('#id_year').value=year;
+  //$('#id_college').val(college);
+  $('input:radio[id=id_bhu_college]:nth(0)').attr('checked',true);
+  $('#id_city').val(city);
+  $('#id_year').val(year);
 }
+$('#id_other_radio_college').on('focus',function(){
+  $('id_other_text_college').focus();
+});
 $('#signup_button').on('click',function(data){
   $.ajax({
                   url : "/signup2/",

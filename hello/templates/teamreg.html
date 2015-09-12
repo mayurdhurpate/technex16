@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Team Registration</title>
+</head>
+<body>
+<form method="post" action="/team/" id="post-form">
+	{% csrf_token %}
+	<h1>Team registration</h1>
+	<input type="text" placeholder="Team name" id="team_name" maxlength="100" name="teamname" required autofocus=""/><span style="color:red;">*</span><br>
+	<input type="text" placeholder="Team Leader" id="team_leader" required autofocus="true" /><span style="color:red;">*  </span><span id="err_msg_team_leader"> </span><br>
+	<input type="text" placeholder="Team member 1" id="team_member1" autofocus="true" />  <span id="err_msg_team_member1"> </span><br>
+	<input type="text" placeholder="Team member 2" id="team_member2" autofocus="true" />  <span id="err_msg_team_member2"> </span><br>
+	<input type="text" placeholder="Team member 3" id="team_member3" autofocus="true" />  <span id="err_msg_team_member3"> </span><br>
+	<input type="text" placeholder="Team member 4" id="team_member4" autofocus="true" />  <span id="err_msg_team_member4"> </span><br>
+	<span id="error_msg"></span>
+	<button type="submit" value="Submit" id="register_button">Proceed</button>
+</form>
+</body>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/teamreg.js" %}"></script>
+</html>

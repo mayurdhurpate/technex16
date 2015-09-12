@@ -101,3 +101,6 @@ def login(request):
             return render(request,'login.html',response_dict)
     else:
         return render(request,'login.html',{})
+
+def teamreg(request):
+    return render(request, 'teamreg.html')

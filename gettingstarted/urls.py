@@ -19,4 +19,5 @@ urlpatterns = patterns('',
     url(r'^login_email/$',hello.views.login_email,name='login_email'),
     url(r'^login/$',hello.views.login,name='login'),
     url(r'^signup2/$',hello.views.signup2,name='signup2'),
+    url(r'^teamreg/$',hello.views.teamreg, name='teamreg')
 )

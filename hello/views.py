@@ -103,7 +103,7 @@ def login(request):
                 response_dict.update({'response': "Wrong password",'login':login})
                 return render(request,'login.html',response_dict)
         except:
-            return HttpResponseRedirect('/login')
+            return render(request,'login.html',{'response': 'Email or password is invalid.'})
     else:
         return render(request,'login.html',{})
 

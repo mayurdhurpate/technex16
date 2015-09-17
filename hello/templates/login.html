@@ -4,6 +4,8 @@
     <head lang="en">
 	    <meta charset="UTF-8">
       <title>Technex-Login</title>
+      <meta name="google-signin-client_id" content="702913643852-qbsg8t4bvc06h57lbomh8th6uvbvhhbr.apps.googleusercontent.com">
+      <script src="https://apis.google.com/js/platform.js" async defer></script>
     </head>
 <body>
 <form role="form" method="post" action= "/login/" id='post-form'>
@@ -17,10 +19,30 @@
   {% if response %}
   {{ response }}
   {% endif %}
+  <br>
 <button  type="submit" value="Submit" id="login_button"/>Sign in</button>
   <p> Not a member? <a href="{% url 'signup' %}"> SignUp! </a></p>
 </form>
+<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<a href="#" onclick="signOut();">Sign out</a>
+<script>
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+      console.log('User signed out.');
+    });
+  }
+</script>
+<script type="text/javascript">
+  function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail());
+}
 
+</script>
 </body>
 <script src="{% static "js/jquery.min.js" %}"> </script>
 <script src="{% static "js/jquery-1.11.3.min.js" %}"> </script>

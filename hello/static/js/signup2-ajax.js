@@ -47,20 +47,18 @@ if(city)
 {
   //$('#id_college').val(college);
   $('input:radio[id=id_bhu_college]:nth(0)').attr('checked',true);
-  $('#id_city').val(city);
   $('#id_year').val(year);
 }
 $('#id_other_radio_college').on('focus',function(){
   $('id_other_text_college').focus();
 });
-$('#signup_button').on('click',function(data){
+/*$('#signup_button').on('click',function(data){
   $.ajax({
                   url : "/signup2/",
                   type : "POST",
                   dataType: "json",
                   data : {
                       email : getCookie('email'),
-                      city: $('#id_city').val(),
                       college:$('#id_college').val(),
                       year:$('#id_year').val(),
                       'csrfmiddlewaretoken':csrftoken
@@ -74,5 +72,5 @@ $('#signup_button').on('click',function(data){
                   }
               });
 
-});
+});*/
 });

@@ -9,8 +9,7 @@
 <form role="form" method="post" action= "/signup2/" id="post-form">
     {% csrf_token %}
     <h1> SignUp 2</h1>
-    <input class="form-control" placeholder="City" id="id_city" maxlength="254"  name="city" type="text" required autofocus=""/>
-    <span id="city_msg"></span></div>
+
     <div>
     <input id="id_bhu_college" name="college" type="radio" value="IIT(BHU) Varanasi"/>IIT(BHU) Varanasi<br/>
     <input id="id_other_radio_college" name="college" type="radio" value="Other" />Other
@@ -23,10 +22,10 @@
     <input id="id_year" id='id_4' name="year" type="radio"/>4<br/>
     <input id="id_year" id='id_5' name="year" type="radio"/>5<br/>
     <span id="year_msg"></span></div>
-
+<button type="submit" value="Submit" id ="signup_button"/>SignUp</button>
 
 </form>
-<button type="submit" value="Submit" id ="signup_button"/>SignUp</button>
+
 </body>
 <script src="{% static "js/jquery.min.js" %}"> </script>
 <script src="{% static "js/jquery-1.11.3.min.js" %}"> </script>

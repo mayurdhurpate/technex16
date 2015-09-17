@@ -11,7 +11,7 @@
 	<h1>Team registration</h1>
 	<select name="event">
 	{% for event in events %}
-		<option value={{event.name}}>{{event.name}}</option>
+		<option value={{ event.slug }}>{{ event.name }}</option>
 	{% endfor %}
 	</select>
 	<br>

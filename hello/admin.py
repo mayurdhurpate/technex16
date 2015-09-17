@@ -1,5 +1,7 @@
 from django.contrib import admin
-from hello.models import User
-admin.site.register(User)
+from hello.models import User, ParentEvent, Event, Team
 
-# Register your models here.
+admin.site.register(User)
+admin.site.register(ParentEvent)
+admin.site.register(Event)
+admin.site.register(Team)

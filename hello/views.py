@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from hello.models import User
+from hello.models import User, Event, Team, ParentEvent, Post
 from .models import Greeting
 import json
 
@@ -44,7 +44,12 @@ def signup(request):
         name=request.POST['name']
         mobile=request.POST['mobile']
         #print "hello"
-        u=User.objects.get_or_create(name=name,email=email,phone=mobile,password=password,city='Varanasi',college='IIT(BHU) Varanasi',year='2')
+        u=User.objects.create(name=name,
+                                    email=email,
+                                    phone=mobile,
+                                    password=password,
+                                    college='IIT(BHU) Varanasi',
+                                    year='2')
         return HttpResponseRedirect('/signup2/')
     else:
         return render(request,'signup.html',{})
@@ -65,9 +70,6 @@ def signup2(request):
         return HttpResponseRedirect('/')
     else:
         return render(request,'signup2.html',{'response':'Registered'})
-
-def display(request):
-    pass
 
 def login_email(request):
     if request.method=="POST":
@@ -103,4 +105,32 @@ def login(request):
         return render(request,'login.html',{})
 
 def teamreg(request):
-    return render(request, 'teamreg.html')
+    if request.method =="POST":
+        event = request.POST["event"]
+        team_name = request.POST["team_name"]
+        team_leader = request.POST["team_leader"]
+        team_member1_e = request.POST["team_member1"]
+        team_member2_e = request.POST["team_member2"]
+        team_member3_e = request.POST["team_member3"]
+        team_member4_e = request.POST["team_member4"]
+
+        event = Event.objects.get(name=event)
+        team_member1 = User.objects.get(email=team_member1_e)
+        team_member2 = User.objects.get(email=team_member2_e)
+        team_member3 = User.objects.get(email=team_member3_e)
+        team_member4 = User.objects.get(email=team_member4_e)
+
+        t = Team.objects.create(team_name=team_name,
+                            team_leader_email=team_leader)
+
+        t.event.add(event)
+        t.team_members.add(team_member1)
+        t.team_members.add(team_member2)
+        t.team_members.add(team_member3)
+        t.team_members.add(team_member4)
+        return HttpResponseRedirect('/')       
+
+    else: 
+        event_list = Event.objects.all() 
+        print event_list  
+        return render(request, 'teamreg.html', {'events':event_list})

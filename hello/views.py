@@ -114,20 +114,25 @@ def teamreg(request):
         team_member3_e = request.POST["team_member3"]
         team_member4_e = request.POST["team_member4"]
 
-        event = Event.objects.get(name=event)
-        team_member1 = User.objects.get(email=team_member1_e)
-        team_member2 = User.objects.get(email=team_member2_e)
-        team_member3 = User.objects.get(email=team_member3_e)
-        team_member4 = User.objects.get(email=team_member4_e)
-
         t = Team.objects.create(team_name=team_name,
                             team_leader_email=team_leader)
 
+        event = Event.objects.get(name=event)
         t.event.add(event)
-        t.team_members.add(team_member1)
-        t.team_members.add(team_member2)
-        t.team_members.add(team_member3)
-        t.team_members.add(team_member4)
+
+        if team_member1_e != '':
+            team_member1 = User.objects.get(email=team_member1_e)
+            t.team_members.add(team_member1)
+        if team_member2_e != '':
+            team_member2 = User.objects.get(email=team_member2_e)
+            t.team_members.add(team_member2)
+        if team_member3_e != '':
+            team_member3 = User.objects.get(email=team_member3_e)
+            t.team_members.add(team_member3)
+        if team_member4_e != '':
+            team_member4 = User.objects.get(email=team_member4_e)
+            t.team_members.add(team_member4)
+        
         return HttpResponseRedirect('/')       
 
     else: 

@@ -93,14 +93,17 @@ def login(request):
         #print "hello here"
         email=request.POST["email"]
         password=request.POST['password']
-        u=User.objects.get(email=email)
-        response_dict = {}
-        if u.password==password:
-            return HttpResponseRedirect('/')
-        else:
-            login=False
-            response_dict.update({'response': "Wrong password",'login':login})
-            return render(request,'login.html',response_dict)
+        try:
+            u=User.objects.get(email=email)
+            response_dict = {}
+            if u.password==password:
+                return HttpResponseRedirect('/')
+            else:
+                login=False
+                response_dict.update({'response': "Wrong password",'login':login})
+                return render(request,'login.html',response_dict)
+        except:
+            return HttpResponseRedirect('/login')
     else:
         return render(request,'login.html',{})
 

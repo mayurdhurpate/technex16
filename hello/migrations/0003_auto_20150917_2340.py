@@ -8,18 +8,19 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hello', '0003_auto_20150912_1035'),
+        ('hello', '0002_auto_20150917_2310'),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='points',
-            field=models.IntegerField(default=0),
+            model_name='event',
+            name='slug',
+            field=models.SlugField(default='line', unique=True),
+            preserve_default=False,
         ),
         migrations.AlterField(
             model_name='post',
             name='datetime_added',
-            field=models.DateTimeField(default=datetime.datetime(2015, 9, 12, 10, 43, 23, 635222)),
+            field=models.DateTimeField(default=datetime.datetime(2015, 9, 17, 23, 39, 59, 196786)),
         ),
     ]

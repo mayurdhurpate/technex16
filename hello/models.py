@@ -1,5 +1,6 @@
 from django.db import models
 from datetime import datetime
+from django.template.defaultfilters import slugify
 
 class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
@@ -12,6 +13,10 @@ class User(models.Model):
     college = models.CharField(max_length=100)
     year = models.CharField(max_length=5)
     points=models.IntegerField(default=0)
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+      self.slug = slugify(self.name)
+      super(User, self).save(*args,**kwargs)
 
     def __str__(self):
         return self.name
@@ -29,6 +34,10 @@ class Event(models.Model):
     content=models.TextField()
     parent_event=models.ForeignKey(ParentEvent)
     order=models.IntegerField(default=1)
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+      self.slug = slugify(self.name)
+      super(Event, self).save(*args,**kwargs)
 
     def __str__(self):
         return self.name

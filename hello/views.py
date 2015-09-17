@@ -56,17 +56,15 @@ def signup(request):
 
 def signup2(request):
     if request.method=="POST":
-        email=request.POST["email"]
-        city=request.POST["city"]
+        email=request.COOKIES['email']
         college=request.POST["college"]
         year=request.POST["year"]
         u=User.objects.get(email=email)
-        u.city=city
         u.college=college
         u.year=year
         u.save()
         #index(request)
-        return HttpResponse(json.dumps({'reponse':'Registered'}), content_type='application/javascript')
+        #return HttpResponse(json.dumps({'reponse':'Registered'}), content_type='application/javascript')
         return HttpResponseRedirect('/')
     else:
         return render(request,'signup2.html',{'response':'Registered'})
@@ -109,7 +107,7 @@ def login(request):
 
 def teamreg(request):
     if request.method =="POST":
-        event = request.POST["event"]
+        event_slug = request.POST["event"]
         team_name = request.POST["team_name"]
         team_leader = request.POST["team_leader"]
         team_member1_e = request.POST["team_member1"]
@@ -120,7 +118,7 @@ def teamreg(request):
         t = Team.objects.create(team_name=team_name,
                             team_leader_email=team_leader)
 
-        event = Event.objects.get(name=event)
+        event = Event.objects.get(slug=event_slug)
         t.event.add(event)
 
         if team_member1_e != '':
@@ -135,10 +133,36 @@ def teamreg(request):
         if team_member4_e != '':
             team_member4 = User.objects.get(email=team_member4_e)
             t.team_members.add(team_member4)
-        
-        return HttpResponseRedirect('/')       
 
-    else: 
-        event_list = Event.objects.all() 
-        print event_list  
+        return HttpResponseRedirect('/')
+
+    else:
+        event_list = Event.objects.all()
+        print event_list
         return render(request, 'teamreg.html', {'events':event_list})
+
+def logout(request):
+    response=render(request,'index.html')
+    response.delete_cookie('year')
+    response.delete_cookie('email')
+    response.delete_cookie('name')
+    response.delete_cookie('college')
+    return response
+
+def dashboard(request,email_slug):
+    if 'email' in request.COOKIES:
+      context_dict={}
+      user=User.objects.get(slug=email_slug)
+      context_dict['user']=user
+      teams1={}
+      teams2={}
+      try:
+          teams1=Team.objects.get(team_leader_email=user.email)
+          teams2=user.team_set.all()
+      except:
+          pass
+      context_dict['teams2']=teams2
+      context_dict['teams1']=teams1
+      return render(request,'dashboard.html',context_dict)
+    else:
+      return render(request,'login.html',{})

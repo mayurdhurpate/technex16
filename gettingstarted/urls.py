@@ -21,5 +21,7 @@ urlpatterns = patterns('',
     url(r'^teamreg/$',hello.views.teamreg, name='teamreg'),
     url(r'^logout/$',hello.views.logout,name='logout'),
     url(r'^(?P<email_slug>[\w\-]+)/$',hello.views.dashboard,name='dashboard'),
-
+    url(r'^team/(?P<team_slug>[\w\-]+)/$',hello.views.team,name='team'),
+    url(r'^team/modify/(?P<team_slug>[\w\-]+)/$',hello.views.team_modify,name='team_modify'),
+    url(r'^teamdel/(?P<team_slug>[\w\-]+)/$',hello.views.team_delete,name='team_delete'),
 )

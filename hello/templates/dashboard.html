@@ -7,7 +7,19 @@
 </head>
 <body>
 	Hello {{ user.name }}
-	{{ teams1 }}
-	{{ teams2 }}
-</body>
+	<a href="/logout/">Logout</a><br/>
+	Your Teams-<br/>
+	{% if zipped_data1 %}
+	{% for team,event in zipped_data1 %}
+	<a href="/team/{{ team.slug }}/">{{ team.team_name }}</a> participating in {{ event.name }}
+	<br/>
+	{% endfor %}
+	{% endif %}
+	{% if zipped_data2 %}
+	{% for team,event in zipped_data2 %}
+	<a href="/team/{{ team.slug }}/">{{ team.team_name }}</a> participating in {{ event.name }}
+	<br/>
+	{% endfor %}
+	{% endif %}
+	<body>
 </html>

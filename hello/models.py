@@ -15,7 +15,7 @@ class User(models.Model):
     points=models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
     def save(self, *args, **kwargs):
-      self.slug = slugify(self.name)
+      self.slug = slugify(self.email)
       super(User, self).save(*args,**kwargs)
 
     def __str__(self):
@@ -43,10 +43,14 @@ class Event(models.Model):
         return self.name
 
 class Team(models.Model):
-    team_name = models.CharField(max_length=100)
+    team_name = models.CharField(max_length=100,unique=True)
     team_leader_email=models.CharField(max_length=100)
     team_members=models.ManyToManyField(User)
     event=models.ManyToManyField(Event)
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+      self.slug = slugify(self.team_name)
+      super(Team, self).save(*args,**kwargs)
 
     def __str__(self):
         return self.team_name

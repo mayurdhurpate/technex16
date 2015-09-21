@@ -1,0 +1,10 @@
+{{ team.name }}
+Team Leader - {{ team.team_leader_email}}<br/>
+{% if team_members %}
+{% for member in team_members %}
+Team member {{ forloop.counter }} - {{ member.email }}<br/>
+{% endfor %}
+{% endif %}
+{% if modify %}
+<a href="/team/modify/{{ team.slug }}/">Modify</a>
+{% endif %}

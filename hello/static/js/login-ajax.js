@@ -95,5 +95,8 @@ $(document).ready(function(){
         login_error=true;
         login_msg="Please correct the email";
       }
+      //alert('Hello');
+      createCookie('email',email,100);
+      //createCookie('name',name,100);
     });
 });

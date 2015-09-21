@@ -95,7 +95,9 @@ def login(request):
             u=User.objects.get(email=email)
             response_dict = {}
             if u.password==password:
-                return HttpResponseRedirect('/')
+                response = HttpResponseRedirect('/')
+                #response.set_cookie('email',u.email)
+                return response
             else:
                 login=False
                 response_dict.update({'response': "Wrong password",'login':login})
@@ -107,7 +109,7 @@ def login(request):
 
 def teamreg(request):
     if request.method =="POST":
-        event_slug = request.POST["event"]
+        event_slug = request.POST["event_slug"]
         team_name = request.POST["team_name"]
         team_leader = request.POST["team_leader"]
         team_member1_e = request.POST["team_member1"]
@@ -133,12 +135,13 @@ def teamreg(request):
         if team_member4_e != '':
             team_member4 = User.objects.get(email=team_member4_e)
             t.team_members.add(team_member4)
+        t.save()
 
         return HttpResponseRedirect('/')
 
     else:
         event_list = Event.objects.all()
-        print event_list
+        #print event_list
         return render(request, 'teamreg.html', {'events':event_list})
 
 def logout(request):
@@ -150,19 +153,129 @@ def logout(request):
     return response
 
 def dashboard(request,email_slug):
-    if 'email' in request.COOKIES:
+    #if 'email' in request.COOKIES:
       context_dict={}
       user=User.objects.get(slug=email_slug)
+      #print user.email
       context_dict['user']=user
-      teams1={}
-      teams2={}
+      teams1=[]
+      event_list1=[]
       try:
-          teams1=Team.objects.get(team_leader_email=user.email)
-          teams2=user.team_set.all()
+          teams3=Team.objects.filter(team_leader_email=user.email)
+          #print teams3
+          for team in teams3:
+              #print team
+              t=Team.objects.get(team_name=team)
+              event=t.event.all()[0]
+              #print t
+              teams1.append(t)
+              event_list1.append(event)
       except:
           pass
-      context_dict['teams2']=teams2
-      context_dict['teams1']=teams1
+      zipped_data1=zip(teams1,event_list1)
+      print zipped_data1
+      event_list2=[]
+      try:
+          teams2=user.team_set.all()
+          #print teams2
+          for team in teams2:
+              event=team.event.all()[0]
+              event_list2.append(event)
+      except:
+          teams2=[]
+      zipped_data2=zip(teams2,event_list2)
+      print zipped_data2
+      context_dict['zipped_data1']=zipped_data1
+      context_dict['zipped_data2']=zipped_data2
       return render(request,'dashboard.html',context_dict)
-    else:
+    #else:
       return render(request,'login.html',{})
+
+def team(request,team_slug):
+    team=Team.objects.get(slug=team_slug)
+    try:
+        email=request.COOKIES['email']
+        if email==team.team_leader_email:
+            modify=True
+        else:
+            modify=False
+    except:
+        modify=False
+    team_members=team.team_members.all()
+    return render(request,'team.html',{'team':team, 'team_members':team_members,'modify':modify})
+
+def team_modify(request,team_slug):
+    context_dict={}
+    team=Team.objects.get(slug=team_slug)
+    context_dict['team']=team
+    team_members=team.team_members.all()
+    print team_members
+    try:
+        team_member1=team_members[0]
+        context_dict['team_member1']=team_member1
+        team_member2=team_members[1]
+        context_dict['team_member2']=team_member2
+        team_member3=team_members[2]
+        context_dict['team_member3']=team_member3
+        team_member4=team_members[3]
+        context_dict['team_member4']=team_member4
+    except:
+        pass
+    print len(team_members)
+    event=team.event.all()[0]
+    context_dict['event']=event
+    if request.method =="POST":
+        team_name = request.POST["team_name"]
+        team_leader = request.POST["team_leader"]
+        team_member1_e = request.POST["team_member1"]
+        team_member2_e = request.POST["team_member2"]
+        team_member3_e = request.POST["team_member3"]
+        team_member4_e = request.POST["team_member4"]
+        if team_name==team.team_name:
+            team.team_leader_email=team_leader
+            team.team_members.clear()
+            if team_member1_e != '':
+                team_member1 = User.objects.get(email=team_member1_e)
+                team.team_members.add(team_member1)
+            if team_member2_e != '':
+                team_member2 = User.objects.get(email=team_member2_e)
+                team.team_members.add(team_member2)
+            if team_member3_e != '':
+                team_member3 = User.objects.get(email=team_member3_e)
+                team.team_members.add(team_member3)
+            if team_member4_e != '':
+                team_member4 = User.objects.get(email=team_member4_e)
+                team.team_members.add(team_member4)
+        else:
+            event = team.event
+            print event
+            team.delete()
+            t = Team.objects.create(team_name=team_name,
+                                team_leader_email=team_leader)
+            t.event.add(event)
+
+            if team_member1_e != '':
+                team_member1 = User.objects.get(email=team_member1_e)
+                t.team_members.add(team_member1)
+            if team_member2_e != '':
+                team_member2 = User.objects.get(email=team_member2_e)
+                t.team_members.add(team_member2)
+            if team_member3_e != '':
+                team_member3 = User.objects.get(email=team_member3_e)
+                t.team_members.add(team_member3)
+            if team_member4_e != '':
+                team_member4 = User.objects.get(email=team_member4_e)
+                t.team_members.add(team_member4)
+            t.save()
+            team=t
+
+
+        return HttpResponseRedirect('/team/'+team.slug+'/')
+
+    else:
+        return render(request, 'team_mod.html',context_dict)
+
+
+def team_delete(request,team_slug):
+    team=Team.objects.filter(slug=team_slug).delete()
+    return HttpResponseRedirect('/')

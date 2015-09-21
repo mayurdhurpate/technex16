@@ -94,7 +94,7 @@ USE_TZ = True
 
 
 # Parse database configuration from $DATABASE_URL
-DATABASES['default'] =  dj_database_url.config()
+#DATABASES['default'] =  dj_database_url.config()
 
 # Enable Connection Pooling (if desired)
 #DATABASES['default']['ENGINE'] = 'django_postgrespool'
@@ -119,3 +119,20 @@ STATICFILES_DIRS = (
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+#For email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+
+EMAIL_HOST = 'smtp.gmail.com'
+
+EMAIL_HOST_USER = 'sender@gmail.com'
+
+#Must generate specific password for your app in [gmail settings][1]
+EMAIL_HOST_PASSWORD = 'app_specific_password'
+
+EMAIL_PORT = 587
+
+#This did the trick
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

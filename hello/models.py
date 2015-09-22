@@ -13,6 +13,8 @@ class User(models.Model):
     college = models.CharField(max_length=100)
     year = models.CharField(max_length=5)
     points=models.IntegerField(default=0)
+    google_id = models.CharField(max_length=200)
+    image_link = models.URLField(default="")
     slug = models.SlugField(unique=True)
     def save(self, *args, **kwargs):
       self.slug = slugify(self.name)

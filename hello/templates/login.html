@@ -34,12 +34,38 @@
   }
 </script>
 <script type="text/javascript">
+  function createCookie(name,value){
+    document.cookie = name+"="+value+";";
+  }
+
   function onSignIn(googleUser) {
+  var csrftoken = getCookie('csrftoken');
   var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
+  createCookie('ID', profile.getId());
+  createCookie('name', profile.getName());
+  createCookie('Image URL', profile.getImageUrl());
+  createCookie('Email', profile.getEmail());
+  $.ajax({
+    url:"/idcheck/",
+    type:"POST",
+    dataType:"json",
+    data: {
+      id : profile.getId(),
+      'csrfmiddlewaretoken': csrftoken
+    },
+    success : function(json) {
+      if(json.response == "EXIST"){
+        window.location = "/";
+      }
+      else {
+        window.location = "/signup2";
+      }
+    },
+    error : function(xhr,errmsg,err) {
+        alert(xhr.status + ": " + xhr.responseText);
+    }
+
+  });
 }
 
 </script>

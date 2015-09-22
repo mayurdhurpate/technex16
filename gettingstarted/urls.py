@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^signup2/$',hello.views.signup2,name='signup2'),
     url(r'^teamreg/$',hello.views.teamreg, name='teamreg'),
     url(r'^logout/$',hello.views.logout,name='logout'),
+    url(r'^idcheck/$',hello.views.idcheck, name='idcheck'),
     url(r'^(?P<email_slug>[\w\-]+)/$',hello.views.dashboard,name='dashboard'),
 
 )

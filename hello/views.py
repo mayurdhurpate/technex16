@@ -105,6 +105,25 @@ def login(request):
     else:
         return render(request,'login.html',{})
 
+def idcheck(request):
+    if request.method=="POST":
+        id = request.POST["id"]
+        print id
+        try:
+            i = User.objects.filter(google_id=id)
+        except:
+            i=None
+
+        response_dict = {}
+        if i:
+            print "USER EXISTS"
+            response_dict.update({'response':"EXIST"})
+        else:
+            response_dict.update({'response': "DO NOT EXIST" })
+        return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+    else:
+        HttpResponse("FFFFFF")
+
 def teamreg(request):
     if request.method =="POST":
         event_slug = request.POST["event"]

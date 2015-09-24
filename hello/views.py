@@ -152,19 +152,26 @@ def google_login(request):
         name=request.POST['name']
         google_id=request.POST['id']
         response_dict={}
-        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+        print email
         try:
             u=User.objects.get(email=email)
+            print u
             if u.google_id==google_id:
-                response.set_cookie('email',u.email)
+                print "Hello"
                 response_dict.update({'response':"logged in"})
+                response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+                response.set_cookie('email',email)
+                print "Hello thrice"
             else:
+                print "Hello here"
                 u.google_id=google_id
                 u.image_url=image_url
                 u.save()
-                response.set_cookie('email',u.email)
-                response_dict.update({'response': "logged in" })
+                response_dict.update({'response': "logged in"})
+                response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+                response.set_cookie('email',email)
         except:
+            print "In except"
             u=User.objects.create(name=name,
                                             email=email,
                                             phone=9999999999,
@@ -174,6 +181,9 @@ def google_login(request):
                                             image_url=image_url,
                                             google_id=google_id)
             response_dict.update({'response':'First step done'})
+            response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+            response.set_cookie('email',u.email)
+        print response
         return response
 
 def teamreg(request):
@@ -214,11 +224,20 @@ def teamreg(request):
         return render(request, 'teamreg.html', {'events':event_list})
 
 def logout(request):
-    response=render(request,'index.html')
-    response.delete_cookie('year')
-    response.delete_cookie('email')
-    response.delete_cookie('name')
-    response.delete_cookie('college')
+    email=request.COOKIES['email']
+    if request.method=="POST":
+        response_dict={}
+        u=User.objects.get(email=email)
+        if(u.google_id):
+            response_dict.update({'response': "google logout"})
+        else:
+            response_dict.update({'response':"simple logout"})
+        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+        response.delete_cookie('year')
+        response.delete_cookie('email')
+        response.delete_cookie('name')
+        response.delete_cookie('college')
+
     return response
 
 def dashboard(request,email_slug):

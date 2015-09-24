@@ -122,7 +122,7 @@ def google_login(request):
                 print "Hello"
                 response_dict.update({'response':"logged in"})
                 response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
-                response.set_cookie('email',u.email)
+                response.set_cookie('email',email)
                 print "Hello thrice"
             else:
                 print "Hello here"
@@ -131,7 +131,7 @@ def google_login(request):
                 u.save()
                 response_dict.update({'response': "logged in"})
                 response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
-                response.set_cookie('email',u.email)
+                response.set_cookie('email',email)
         except:
             print "In except"
             u=User.objects.create(name=name,
@@ -188,14 +188,19 @@ def teamreg(request):
 
 def logout(request):
     email=request.COOKIES['email']
-    u=User.objects.get(email=email)
-    if(u.google_id)
-        
-    response=render(request,'index.html')
-    response.delete_cookie('year')
-    response.delete_cookie('email')
-    response.delete_cookie('name')
-    response.delete_cookie('college')
+    if request.method=="POST":
+        response_dict={}
+        u=User.objects.get(email=email)
+        if(u.google_id):
+            response_dict.update({'response': "google logout"})
+        else:
+            response_dict.update({'response':"simple logout"})
+        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+        response.delete_cookie('year')
+        response.delete_cookie('email')
+        response.delete_cookie('name')
+        response.delete_cookie('college')
+
     return response
 
 def dashboard(request,email_slug):

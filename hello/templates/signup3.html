@@ -1,0 +1,32 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sign up 3| Technex'16</title>
+</head>
+<body>
+	<form>
+		{% csrf_token %}
+		<h1>Sign Up</h1>
+		<input type="text" name="phone" placeholder="Enter phone number">
+		<div>
+		    <span>College</span>
+	        <span>
+		    <input id="id_bhu_college" name="college" type="radio" value="IIT(BHU) Varanasi"/>IIT(BHU) Varanasi<br/>
+		    <input id="id_other_radio_college" name="college" type="radio" value="Other" />Other
+		    <input id="id_other_text_college" type="text" name="college"/></span>
+		    <span id="college_msg"></span>
+		</div><br/></div>
+	    <div>Year-
+      <select name="event_slug">
+        <option id='id_1' name="year" >1</option>
+        <option id='id_2' name="year" >2</option>
+        <option id='id_3' name="year" >3</option>
+        <option id='id_4' name="year" >4</option>
+        <option id='id_5' name="year" >5</option>
+    	</select>
+        <span id="year_msg"></span></div>
+
+	</form>
+</body>
+</html>

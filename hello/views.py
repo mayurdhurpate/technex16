@@ -2,12 +2,17 @@ from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from hello.models import User, Event, Team, ParentEvent, Post
 from .models import Greeting
+
 import json
+# import urllib2
+from oauth2client import client, crypt
 
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
+
+CLIENT_ID = '702913643852-qbsg8t4bvc06h57lbomh8th6uvbvhhbr.apps.googleusercontent.com'
 
 
 def db(request):
@@ -69,6 +74,20 @@ def signup2(request):
     else:
         return render(request,'signup2.html',{'response':'Registered'})
 
+def signup3(request):
+    if request.method=="POST":
+        email = request.COOKIES['email']
+        college = request.POST["college"]
+        year = request.POST["year"]
+        u=User.objects.get(email=email)
+        u.college=college
+        u.year=year
+        u.save()
+
+        return HttpResponseRedirect('/')
+    else:
+        return render(request, 'signup3.html')
+
 def login_email(request):
     if request.method=="POST":
         if request.POST.has_key('email'):
@@ -95,7 +114,9 @@ def login(request):
             u=User.objects.get(email=email)
             response_dict = {}
             if u.password==password:
-                return HttpResponseRedirect('/')
+                response = HttpResponseRedirect('/')
+                #response.set_cookie('email',u.email)
+                return response
             else:
                 login=False
                 response_dict.update({'response': "Wrong password",'login':login})
@@ -124,9 +145,40 @@ def idcheck(request):
     else:
         HttpResponse("FFFFFF")
 
+def google_login(request):
+    if request.method=="POST":
+        email=request.POST['email']
+        image_url=request.POST['image_url']
+        name=request.POST['name']
+        google_id=request.POST['id']
+        response_dict={}
+        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+        try:
+            u=User.objects.get(email=email)
+            if u.google_id==google_id:
+                response.set_cookie('email',u.email)
+                response_dict.update({'response':"logged in"})
+            else:
+                u.google_id=google_id
+                u.image_url=image_url
+                u.save()
+                response.set_cookie('email',u.email)
+                response_dict.update({'response': "logged in" })
+        except:
+            u=User.objects.create(name=name,
+                                            email=email,
+                                            phone=9999999999,
+                                            password="password",
+                                            college='IIT(BHU) Varanasi',
+                                            year='2',
+                                            image_url=image_url,
+                                            google_id=google_id)
+            response_dict.update({'response':'First step done'})
+        return response
+
 def teamreg(request):
     if request.method =="POST":
-        event_slug = request.POST["event"]
+        event_slug = request.POST["event_slug"]
         team_name = request.POST["team_name"]
         team_leader = request.POST["team_leader"]
         team_member1_e = request.POST["team_member1"]
@@ -152,12 +204,13 @@ def teamreg(request):
         if team_member4_e != '':
             team_member4 = User.objects.get(email=team_member4_e)
             t.team_members.add(team_member4)
+        t.save()
 
         return HttpResponseRedirect('/')
 
     else:
         event_list = Event.objects.all()
-        print event_list
+        #print event_list
         return render(request, 'teamreg.html', {'events':event_list})
 
 def logout(request):
@@ -169,19 +222,153 @@ def logout(request):
     return response
 
 def dashboard(request,email_slug):
-    if 'email' in request.COOKIES:
+    #if 'email' in request.COOKIES:
       context_dict={}
-      user=User.objects.get(slug=email_slug)
-      context_dict['user']=user
-      teams1={}
-      teams2={}
       try:
-          teams1=Team.objects.get(team_leader_email=user.email)
-          teams2=user.team_set.all()
+          user=User.objects.get(slug=email_slug)
+      except:
+          user=None
+      #print user.email
+      context_dict['user']=user
+      teams1=[]
+      event_list1=[]
+      try:
+          teams3=Team.objects.filter(team_leader_email=user.email)
+          #print teams3
+          for team in teams3:
+              #print team
+              t=Team.objects.get(team_name=team)
+              event=t.event.all()[0]
+              #print t
+              teams1.append(t)
+              event_list1.append(event)
       except:
           pass
-      context_dict['teams2']=teams2
-      context_dict['teams1']=teams1
+      zipped_data1=zip(teams1,event_list1)
+      print zipped_data1
+      event_list2=[]
+      try:
+          teams2=user.team_set.all()
+          #print teams2
+          for team in teams2:
+              event=team.event.all()[0]
+              event_list2.append(event)
+      except:
+          teams2=[]
+      zipped_data2=zip(teams2,event_list2)
+      print zipped_data2
+      context_dict['zipped_data1']=zipped_data1
+      context_dict['zipped_data2']=zipped_data2
       return render(request,'dashboard.html',context_dict)
-    else:
+    #else:
       return render(request,'login.html',{})
+
+def team(request,team_slug):
+    team=Team.objects.get(slug=team_slug)
+    try:
+        email=request.COOKIES['email']
+        if email==team.team_leader_email:
+            modify=True
+        else:
+            modify=False
+    except:
+        modify=False
+    team_members=team.team_members.all()
+    return render(request,'team.html',{'team':team, 'team_members':team_members,'modify':modify})
+
+def team_modify(request,team_slug):
+    context_dict={}
+    team=Team.objects.get(slug=team_slug)
+    context_dict['team']=team
+    team_members=team.team_members.all()
+    print team_members
+    try:
+        team_member1=team_members[0]
+        context_dict['team_member1']=team_member1
+        team_member2=team_members[1]
+        context_dict['team_member2']=team_member2
+        team_member3=team_members[2]
+        context_dict['team_member3']=team_member3
+        team_member4=team_members[3]
+        context_dict['team_member4']=team_member4
+    except:
+        pass
+    print len(team_members)
+    event=team.event.all()[0]
+    context_dict['event']=event
+    if request.method =="POST":
+        team_name = request.POST["team_name"]
+        team_leader = request.POST["team_leader"]
+        team_member1_e = request.POST["team_member1"]
+        team_member2_e = request.POST["team_member2"]
+        team_member3_e = request.POST["team_member3"]
+        team_member4_e = request.POST["team_member4"]
+        if team_name==team.team_name:
+            team.team_leader_email=team_leader
+            team.team_members.clear()
+            if team_member1_e != '':
+                team_member1 = User.objects.get(email=team_member1_e)
+                team.team_members.add(team_member1)
+            if team_member2_e != '':
+                team_member2 = User.objects.get(email=team_member2_e)
+                team.team_members.add(team_member2)
+            if team_member3_e != '':
+                team_member3 = User.objects.get(email=team_member3_e)
+                team.team_members.add(team_member3)
+            if team_member4_e != '':
+                team_member4 = User.objects.get(email=team_member4_e)
+                team.team_members.add(team_member4)
+        else:
+            event = team.event
+            print event
+            team.delete()
+            t = Team.objects.create(team_name=team_name,
+                                team_leader_email=team_leader)
+            t.event.add(event)
+
+            if team_member1_e != '':
+                team_member1 = User.objects.get(email=team_member1_e)
+                t.team_members.add(team_member1)
+            if team_member2_e != '':
+                team_member2 = User.objects.get(email=team_member2_e)
+                t.team_members.add(team_member2)
+            if team_member3_e != '':
+                team_member3 = User.objects.get(email=team_member3_e)
+                t.team_members.add(team_member3)
+            if team_member4_e != '':
+                team_member4 = User.objects.get(email=team_member4_e)
+                t.team_members.add(team_member4)
+            t.save()
+            team=t
+
+
+        return HttpResponseRedirect('/team/'+team.slug+'/')
+
+    else:
+        return render(request, 'team_mod.html',context_dict)
+
+
+def team_delete(request,team_slug):
+    team=Team.objects.filter(slug=team_slug).delete()
+    return HttpResponseRedirect('/')
+
+def tokensignin(request):
+    print request.method
+    if request.method == "POST":
+        token = request.POST['idtoken']
+        print token
+        
+        try:
+            idinfo = client.verify_id_token(token, CLIENT_ID)
+            # If multiple clients access the backend server:
+            # if idinfo['aud'] not in [ANDROID_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID]:
+            #     raise crypt.AppIdentityError("Unrecognized client.")
+            if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
+                raise crypt.AppIdentityError("Wrong issuer.")
+            if idinfo['hd'] != APPS_DOMAIN_NAME:
+                raise crypt.AppIdentityError("Wrong hosted domain.")
+        except crypt.AppIdentityError, e:
+            print e
+        userid = idinfo['sub']
+
+

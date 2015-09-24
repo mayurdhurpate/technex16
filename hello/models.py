@@ -16,8 +16,10 @@ class User(models.Model):
     google_id = models.CharField(max_length=200)
     image_link = models.URLField(default="")
     slug = models.SlugField(unique=True)
+    image_url=models.CharField(null=True,blank=True,max_length=1000)
+    google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
     def save(self, *args, **kwargs):
-      self.slug = slugify(self.name)
+      self.slug = slugify(self.email)
       super(User, self).save(*args,**kwargs)
 
     def __str__(self):
@@ -45,10 +47,14 @@ class Event(models.Model):
         return self.name
 
 class Team(models.Model):
-    team_name = models.CharField(max_length=100)
+    team_name = models.CharField(max_length=100,unique=True)
     team_leader_email=models.CharField(max_length=100)
     team_members=models.ManyToManyField(User)
     event=models.ManyToManyField(Event)
+    slug = models.SlugField(unique=True)
+    def save(self, *args, **kwargs):
+      self.slug = slugify(self.team_name)
+      super(Team, self).save(*args,**kwargs)
 
     def __str__(self):
         return self.team_name

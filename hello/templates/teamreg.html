@@ -9,7 +9,7 @@
 <form method="post" action="/teamreg/" id="post-form">
 	{% csrf_token %}
 	<h1>Team registration</h1>
-	<select name="event">
+	<select name="event_slug">
 	{% for event in events %}
 		<option value={{ event.slug }}>{{ event.name }}</option>
 	{% endfor %}

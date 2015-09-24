@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>Team Registration</title>
+</head>
+<body>
+<form method="post" action="/team/modify/{{ team.slug }}/" id="post-form">
+	{% csrf_token %}
+	<h1>Team Modification</h1>
+	Event - {{ event.name }}
+	<br>
+	<input type="text" placeholder="Team name" id="team_name" maxlength="100" name="team_name" value={{ team.team_name }} required autofocus=""/><span style="color:red;">*</span><br>
+	<input type="text" placeholder="Team Leader" id="team_leader" required autofocus="true" name="team_leader" value={{ team.team_leader_email }} /><span style="color:red;">*  </span><span id="err_msg_team_leader"></span><br>
+	{% if team_member1 %}
+  <input type="text" placeholder="Team member 1" id="team_member1" autofocus="true" name="team_member1" value={{ team_member1.email }} />  <span id="err_msg_team_member1"></span><br>
+  {% else %}
+  <input type="text" placeholder="Team member 1" id="team_member1" autofocus="true" name="team_member1" />  <span id="err_msg_team_member1"></span><br>
+	{% endif %}
+  {% if team_member2 %}
+  <input type="text" placeholder="Team member 2" id="team_member2" autofocus="true" name="team_member2" value={{ team_member2.email }} />  <span id="err_msg_team_member2"></span><br>
+  {% else %}
+  <input type="text" placeholder="Team member 2" id="team_member2" autofocus="true" name="team_member2" />  <span id="err_msg_team_member2"></span><br>
+	{% endif %}
+  {% if team_member3 %}
+  <input type="text" placeholder="Team member 3" id="team_member3" autofocus="true" name="team_member3" value={{ team_member3.email }} />  <span id="err_msg_team_member3"></span><br>
+  {% else %}
+  <input type="text" placeholder="Team member 3" id="team_member3" autofocus="true" name="team_member3" />  <span id="err_msg_team_member3"></span><br>
+  {% endif %}
+  {% if team_member4 %}
+  <input type="text" placeholder="Team member 4" id="team_member4" autofocus="true" name="team_member4" value={{ team_member4.email }} />  <span id="err_msg_team_member4"></span><br>
+  {% else %}
+  <input type="text" placeholder="Team member 4" id="team_member4" autofocus="true" name="team_member4" />  <span id="err_msg_team_member4"></span><br>
+	{% endif %}
+
+
+	<span id="error_msg"></span>
+	<button type="submit" value="Submit" id="register_button">Proceed</button>
+</form>
+
+<a href="/teamdel/{{ team.slug }}/"><button>Delete Team</button></a>
+</body>
+<script src="{% static "js/jquery.min.js" %}"></script>
+<script src="{% static "js/teammod.js" %}"></script>
+</html>

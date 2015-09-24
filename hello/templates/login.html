@@ -23,26 +23,9 @@
 <button  type="submit" value="Submit" id="login_button"/>Sign in</button>
   <p> Not a member? <a href="{% url 'signup' %}"> SignUp! </a></p>
 </form>
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
+<div class="g-signin2" data-onsuccess="onSignIn" onclick="onSignInClick();"></div>
 <a href="#" onclick="signOut();">Sign out</a>
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-</script>
-<script type="text/javascript">
-  function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail());
-}
 
-</script>
 <script>
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
@@ -140,4 +123,6 @@
 <script src="{% static "js/jquery.min.js" %}"> </script>
 <script src="{% static "js/jquery-1.11.3.min.js" %}"> </script>
 <script src="{% static "js/login-ajax.js" %}"> </script>
+<script src="{% static "js/google-login.js" %}"> </script>
+
 </html>

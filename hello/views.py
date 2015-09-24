@@ -107,6 +107,38 @@ def login(request):
     else:
         return render(request,'login.html',{})
 
+def google_login(request):
+    if request.method=="POST":
+        email=request.POST['email']
+        image_url=request.POST['image_url']
+        name=request.POST['image_url']
+        google_id=request.POST['id']
+        response_dict={}
+        response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+        try:
+            u=User.objects.get(email=email)
+            if u.google_id==google_id:
+                response.set_cookie('email',u.email)
+                response_dict.update({'response':"logged in"})
+            else:
+                u.google_id=google_id
+                u.image_url=image_url
+                u.save()
+                response.set_cookie('email',u.email)
+                response_dict.update({'response': "logged in" })
+        except:
+            u=User.objects.create(name=name,
+                                            email=email,
+                                            phone=9999999999,
+                                            password="password",
+                                            college='IIT(BHU) Varanasi',
+                                            year='2',
+                                            image_url=image_url,
+                                            google_id=google_id)
+            response_dict.update({'response':'First step done'})
+        return response
+
+
 def teamreg(request):
     if request.method =="POST":
         event_slug = request.POST["event_slug"]
@@ -155,7 +187,10 @@ def logout(request):
 def dashboard(request,email_slug):
     #if 'email' in request.COOKIES:
       context_dict={}
-      user=User.objects.get(slug=email_slug)
+      try:
+          user=User.objects.get(slug=email_slug)
+      except:
+          user=None
       #print user.email
       context_dict['user']=user
       teams1=[]

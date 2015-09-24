@@ -14,6 +14,8 @@ class User(models.Model):
     year = models.CharField(max_length=5)
     points=models.IntegerField(default=0)
     slug = models.SlugField(unique=True)
+    image_url=models.CharField(null=True,blank=True,max_length=1000)
+    google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
     def save(self, *args, **kwargs):
       self.slug = slugify(self.email)
       super(User, self).save(*args,**kwargs)

@@ -40,10 +40,9 @@ function setCookie(name, value, expires, path, domain, secure){
 
 $(document).ready(function(){
 var csrftoken = getCookie('csrftoken');
-var city = getCookie('city');
 var college = getCookie('college');
 var year = getCookie('year');
-if(city)
+if(college)
 {
   //$('#id_college').val(college);
   $('input:radio[id=id_bhu_college]:nth(0)').attr('checked',true);

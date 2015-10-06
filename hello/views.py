@@ -147,7 +147,7 @@ def google_login(request):
             response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
             response.set_cookie('email',u.email)
         u.google_registered=True
-        u.facebook_registered=False
+        u.save()
         print response
         return response
 
@@ -193,8 +193,9 @@ def facebook_login(request):
             response_dict.update({'response':'First step done'})
             response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
             response.set_cookie('email',u.email)
-        u.google_registered=False
-        u.facebook_registered=True
+        u.facebook_registered = True
+        u.save()
+        return response
 
 def teamreg(request):
     if request.method =="POST":
@@ -239,6 +240,7 @@ def logout(request):
         response_dict={}
         u=User.objects.get(email=email)
         if(u.google_registered):
+            print "google logout"
             response_dict.update({'response': "google logout"})
         elif(u.facebook_registered):
             response_dict.update({'response': "facebook logout"})

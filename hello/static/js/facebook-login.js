@@ -1,3 +1,5 @@
+var profile_image;
+var access_token;
 function statusChangeCallback(response) {
   console.log('statusChangeCallback');
   console.log(response);
@@ -7,7 +9,9 @@ function statusChangeCallback(response) {
   // for FB.getLoginStatus().
   if (response.status === 'connected') {
     // Logged into your app and Facebook.
-    testAPI();
+    console.log(response.authResponse);
+    access_token=response.authResponse.accessToken;
+    testAPI(access_token);
   } else if (response.status === 'not_authorized') {
     // The person is logged into Facebook, but not your app.
     document.getElementById('status').innerHTML = 'Please log ' +
@@ -33,7 +37,7 @@ window.fbAsyncInit = function() {
 FB.init({
   appId      : '887126748038629',
   cookie     : true,  // enable cookies to allow the server to access
-                      // the session
+  oauth : true,                    // the session
   xfbml      : true,  // parse social plugins on this page
   version    : 'v2.2' // use version 2.2
 });
@@ -67,39 +71,46 @@ FB.getLoginStatus(function(response) {
 
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
+function testAPI(access_token) {
   console.log('Welcome!  Fetching your information.... ');
-  FB.api('/me', function(response) {
+  FB.api("/me/picture?width=180&height=180",function(response1) {
+
+      profile_image=response1.data.url;
+      console.log(response1.data.url);
+
+      //remove if there and add image element to dom to show without refres
+   });
+  FB.api('/me?fields=email,name', function(response) {
     console.log('Successful login for: ' + response.name);
     //console.log(response.authResponse.accessToken);
     if(response)
     {
-      onSignInClick();
+      onSignInClick(response);
     }
+    console.log(response);
+    //response2=JSON.stringify(response);
     console.log(JSON.stringify(response));
+    console.log(response.id);
+    console.log(response.email);
+    //console.log(response.authResponse.accessToken);
     document.getElementById('status').innerHTML =
       'Thanks for logging in, ' + response.name + '!';
   });
+
 }
 
-function onSignInClick(){
+function onSignInClick(response){
   var csrftoken = getCookie('csrftoken');
-  if(profile.getImageUrl()==undefined){
-    image_url="Set default image"
-  }
-  else{
-    image_url=profile.getImageUrl();
-  }
-  $.ajax({
+    $.ajax({
                   url : "/facebook_login/",
                   type : "POST",
                   dataType: "json",
                   data : {
-                      email : profile.getEmail(),
+                      email : response.email,
                       name :  response.name,
-                      image_url: image_url,
-                      id: profile.getId(),
-                      access_token:response.access_token,
+                      image_url: profile_image,
+                      id: response.id,
+                      access_token:access_token,
                       'csrfmiddlewaretoken':csrftoken
                       },
                   success : function(json) {

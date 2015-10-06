@@ -23,8 +23,10 @@
 <button  type="submit" value="Submit" id="login_button"/>Sign in</button>
   <p> Not a member? <a href="{% url 'signup' %}"> SignUp! </a></p>
 </form>
+<script src="{% static "js/google-login.js" %}"> </script>
 <div class="g-signin2" data-onsuccess="onSignIn" onclick="onSignInClick();"></div>
 <a href="#" onclick="signOut();">Sign out</a>
+<<<<<<< HEAD
 
 <script>
   // This is called with the results from from FB.getLoginStatus().
@@ -149,6 +151,9 @@
   the FB.login() function when clicked.
 -->
 
+=======
+<script src="{% static "js/facebook-login.js" %}"> </script>
+>>>>>>> a9e5ad6e241738d09fb3219f835f30cceb69b5d9
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 
@@ -158,6 +163,6 @@
 <script src="{% static "js/jquery.min.js" %}"> </script>
 <script src="{% static "js/jquery-1.11.3.min.js" %}"> </script>
 <script src="{% static "js/login-ajax.js" %}"> </script>
-<script src="{% static "js/google-login.js" %}"> </script>
+
 
 </html>

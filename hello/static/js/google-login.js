@@ -37,7 +37,7 @@ function onSignInClick(){
     image_url=profile.getImageUrl();
   }
   $.ajax({
-                  url : "/google/login/",
+                  url : "/google_login/",
                   type : "POST",
                   dataType: "json",
                   data : {

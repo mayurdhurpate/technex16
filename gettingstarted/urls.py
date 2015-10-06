@@ -24,6 +24,7 @@ urlpatterns = patterns('',
     url(r'^team/(?P<team_slug>[\w\-]+)/$',hello.views.team,name='team'),
     url(r'^team/modify/(?P<team_slug>[\w\-]+)/$',hello.views.team_modify,name='team_modify'),
     url(r'^teamdel/(?P<team_slug>[\w\-]+)/$',hello.views.team_delete,name='team_delete'),
-    url(r'^google/login/$',hello.views.google_login,name="google_login"),
+    url(r'^google_login/$',hello.views.google_login,name="google_login"),
+    url(r'^facebook_login/$',hello.views.facebook_login,name="facebook_login"),
     url(r'^(?P<email_slug>[\w\-]+)/$',hello.views.dashboard,name='dashboard'),
 )

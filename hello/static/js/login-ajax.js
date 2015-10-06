@@ -45,7 +45,7 @@ $(document).ready(function(){
     function validateEmail(email)
       {
         var re3 = /\S+@\S+\.\S+/;
-        var re4 = /\S+@\S+\.\S+\.S+/
+        var re4 = /\S+@\S+\.\S+\.S+/;
         return re3.test(email) || re4.test(email);
       }
   $('#id_email').keyup(function(){

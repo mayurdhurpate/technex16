@@ -117,15 +117,16 @@ def google_login(request):
         print email
         try:
             u=User.objects.get(email=email)
+            u.save()
             print u
-            if u.google_id==google_id:
-                print "Hello"
+            if u.google_registered:
+                #print "Hello"
                 response_dict.update({'response':"logged in"})
                 response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
                 response.set_cookie('email',email)
-                print "Hello thrice"
+                #print "Hello thrice"
             else:
-                print "Hello here"
+                #print "Hello here"
                 u.google_id=google_id
                 u.image_url=image_url
                 u.save()
@@ -133,7 +134,7 @@ def google_login(request):
                 response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
                 response.set_cookie('email',email)
         except:
-            print "In except"
+            #print "In except"
             u=User.objects.create(name=name,
                                             email=email,
                                             phone=9999999999,
@@ -145,9 +146,55 @@ def google_login(request):
             response_dict.update({'response':'First step done'})
             response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
             response.set_cookie('email',u.email)
+        u.google_registered=True
+        u.facebook_registered=False
         print response
         return response
 
+def facebook_login(request):
+    if request.method=="POST":
+        email=request.POST['email']
+        image_url=request.POST['image_url']
+        name=request.POST['name']
+        facebook_id=request.POST['id']
+        facebook_acesstoken=request.POST['access_token']
+        response_dict={}
+        print email
+        try:
+            u=User.objects.get(email=email)
+            u.save()
+            print u
+            if u.facebook_registered:
+                #print "Hello"
+                response_dict.update({'response':"logged in"})
+                response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+                response.set_cookie('email',email)
+                #print "Hello thrice"
+            else:
+                #print "Hello here"
+                u.facebook_id=facebook_id
+                u.image_url=image_url
+                u.facebook_acesstoken=facebook_acesstoken
+                u.save()
+                response_dict.update({'response': "logged in"})
+                response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+                response.set_cookie('email',email)
+        except:
+            #print "In except"
+            u=User.objects.create(name=name,
+                                            email=email,
+                                            phone=9999999999,
+                                            password="password",
+                                            college='IIT(BHU) Varanasi',
+                                            year='2',
+                                            image_url=image_url,
+                                            facebook_id=facebook_id,
+                                            facebook_acesstoken=facebook_acesstoken)
+            response_dict.update({'response':'First step done'})
+            response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
+            response.set_cookie('email',u.email)
+        u.google_registered=False
+        u.facebook_registered=True
 
 def teamreg(request):
     if request.method =="POST":
@@ -191,8 +238,10 @@ def logout(request):
     if request.method=="POST":
         response_dict={}
         u=User.objects.get(email=email)
-        if(u.google_id):
+        if(u.google_registered):
             response_dict.update({'response': "google logout"})
+        elif(u.facebook_registered):
+            response_dict.update({'response': "facebook logout"})
         else:
             response_dict.update({'response':"simple logout"})
         response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')

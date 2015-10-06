@@ -13,6 +13,14 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '887126748038629',
+    cookie     : true,  // enable cookies to allow the server to access
+                        // the session
+    xfbml      : true,  // parse social plugins on this page
+    version    : 'v2.2' // use version 2.2
+  });
 function onSignIn(googleUser) {
   //alert('Hello');
 profile = googleUser.getBasicProfile();
@@ -35,6 +43,12 @@ $("#logout").click(function(){
                     if(json.response == "google logout"){
                       signOut();
                       }
+                    else if(json.response == "facebook logout")
+                    {
+                      FB.logout(function(response) {
+                      // Person is now logged out
+                      });
+                    }
                       //alert("Succesful signout");
                       window.open("/","_self");
                   },

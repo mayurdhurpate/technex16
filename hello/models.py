@@ -16,6 +16,10 @@ class User(models.Model):
     slug = models.SlugField(unique=True)
     image_url=models.CharField(null=True,blank=True,max_length=1000)
     google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
+    google_registered=models.BooleanField(default=False)
+    facebook_acesstoken=models.CharField(null=True,blank=True,unique=True,max_length=200)
+    facebook_id=models.CharField(null=True,blank=True,unique=True,max_length=200)
+    facebook_registered=models.BooleanField(default=False)
     def save(self, *args, **kwargs):
       self.slug = slugify(self.email)
       super(User, self).save(*args,**kwargs)

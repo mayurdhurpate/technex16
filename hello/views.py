@@ -189,8 +189,6 @@ def google_login(request):
         print response
         return response
 
-<<<<<<< HEAD
-=======
 def facebook_login(request):
     if request.method=="POST":
         email=request.POST['email']
@@ -237,7 +235,6 @@ def facebook_login(request):
         u.save()
         return response
 
->>>>>>> a9e5ad6e241738d09fb3219f835f30cceb69b5d9
 def teamreg(request):
     if request.method =="POST":
         event_slug = request.POST["event_slug"]
@@ -300,6 +297,7 @@ def dashboard(request,email_slug):
       context_dict={}
       try:
           user=User.objects.get(slug=email_slug)
+          print user
       except:
           user=None
       #print user.email

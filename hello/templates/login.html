@@ -26,7 +26,7 @@
 <script src="{% static "js/google-login.js" %}"> </script>
 <div class="g-signin2" data-onsuccess="onSignIn" onclick="onSignInClick();"></div>
 <a href="#" onclick="signOut();">Sign out</a>
-<<<<<<< HEAD
+
 
 <script>
   // This is called with the results from from FB.getLoginStatus().
@@ -99,7 +99,7 @@
 
   window.fbAsyncInit = function() {
   FB.init({
-    appId      : '887126748038629',
+    appId      : '461359507257085',
     cookie     : true,  // enable cookies to allow the server to access
                         // the session
     xfbml      : true,  // parse social plugins on this page
@@ -145,15 +145,8 @@
   }
 </script>
 
-<!--
-  Below we include the Login Button social plugin. This button uses
-  the JavaScript SDK to present a graphical Login button that triggers
-  the FB.login() function when clicked.
--->
-
-=======
 <script src="{% static "js/facebook-login.js" %}"> </script>
->>>>>>> a9e5ad6e241738d09fb3219f835f30cceb69b5d9
+
 <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 </fb:login-button>
 

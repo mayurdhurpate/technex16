@@ -12,16 +12,17 @@ class User(models.Model):
     password = models.CharField(max_length=200)
     college = models.CharField(max_length=100)
     year = models.CharField(max_length=5)
-    points=models.IntegerField(default=0)
+    total_points=models.IntegerField(default=0)
     google_id = models.CharField(max_length=200)
     image_link = models.URLField(default="")
     slug = models.SlugField(unique=True)
     image_url=models.CharField(null=True,blank=True,max_length=1000)
-    google_id=models.CharField(null=True,blank=True,unique=True,max_length=100)
+    google_id=models.CharField(null=True,blank=True,max_length=100)
     google_registered=models.BooleanField(default=False)
-    facebook_acesstoken=models.CharField(null=True,blank=True,unique=True,max_length=200)
-    facebook_id=models.CharField(null=True,blank=True,unique=True,max_length=200)
+    facebook_acesstoken=models.CharField(null=True,blank=True,max_length=200)
+    facebook_id=models.CharField(null=True,blank=True,max_length=200)
     facebook_registered=models.BooleanField(default=False)
+    login=models.IntegerField(default=0)#mannual=0,google=1,facebook=2
     def save(self, *args, **kwargs):
       self.slug = slugify(self.email)
       super(User, self).save(*args,**kwargs)
@@ -73,3 +74,25 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+class Points(models.Model):
+    user=models.OneToOneField(User)
+    google_registerd = models.BooleanField(default=False)
+    facebook_registered = models.BooleanField(default=False)
+    app_download  = models.BooleanField(default=False)
+    event_register  = models.IntegerField(default=0)
+    share_technex_website  = models.BooleanField(default=False)
+    share_technex_page  = models.BooleanField(default=False)
+    #guest lectures sharing -
+    #workshop register - 50
+    #post share - 5
+    #post like - 2
+    #visit 1 day - 1
+    #invite from link(referral) - 5
+    #accomodation allotment,fees - 200
+    #abstract submission - 50
+    #industrial conclave - 50
+    #watermark app photo - 50
+    #pronites register - 200
+    def __str__(self):
+        return self.user.name

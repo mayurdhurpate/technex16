@@ -91,7 +91,7 @@ function testAPI(access_token) {
     //response2=JSON.stringify(response);
     console.log(JSON.stringify(response));
     console.log(response.id);
-    console.log(response.email);
+    //console.log(response.email);
     //console.log(response.authResponse.accessToken);
     document.getElementById('status').innerHTML =
       'Thanks for logging in, ' + response.name + '!';
@@ -100,13 +100,16 @@ function testAPI(access_token) {
 }
 
 function onSignInClick(response){
+  var email;
+  if (response.email==undefined){ email="something";}
+  else {email=response.email; }
   var csrftoken = getCookie('csrftoken');
     $.ajax({
                   url : "/facebook_login/",
                   type : "POST",
                   dataType: "json",
                   data : {
-                      email : response.email,
+                      email : email,
                       name :  response.name,
                       image_url: profile_image,
                       id: response.id,

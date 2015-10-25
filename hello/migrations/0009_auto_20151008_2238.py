@@ -8,19 +8,19 @@ import datetime
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('hello', '0008_auto_20150923_2352'),
+        ('hello', '0008_merge'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='user',
             name='facebook_acesstoken',
-            field=models.CharField(max_length=200, unique=True, null=True, blank=True),
+            field=models.CharField(max_length=200, null=True, blank=True),
         ),
         migrations.AddField(
             model_name='user',
             name='facebook_id',
-            field=models.CharField(max_length=200, unique=True, null=True, blank=True),
+            field=models.CharField(max_length=200, null=True, blank=True),
         ),
         migrations.AddField(
             model_name='user',
@@ -32,9 +32,19 @@ class Migration(migrations.Migration):
             name='google_registered',
             field=models.BooleanField(default=False),
         ),
+        migrations.AddField(
+            model_name='user',
+            name='image_url',
+            field=models.CharField(max_length=1000, null=True, blank=True),
+        ),
         migrations.AlterField(
             model_name='post',
             name='datetime_added',
-            field=models.DateTimeField(default=datetime.datetime(2015, 10, 6, 14, 45, 37, 347029)),
+            field=models.DateTimeField(default=datetime.datetime(2015, 10, 8, 22, 38, 52, 481332)),
+        ),
+        migrations.AlterField(
+            model_name='user',
+            name='google_id',
+            field=models.CharField(max_length=100, null=True, blank=True),
         ),
     ]

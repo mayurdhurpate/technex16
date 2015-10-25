@@ -1,0 +1,62 @@
+
+
+/* Slider */
+.swiper-container {
+    width: 780px;
+    height: 435px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 4;
+}
+
+.swiper-slide {
+    float: left;
+    height: 588px;
+}
+
+.swiper-container img {
+    margin: 0 auto;
+    position: relative;
+    z-index: 5 !important;
+}
+
+.arrow-left, .arrow-right {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    z-index: 11;
+    top: 50%;
+    margin-top: -60px;
+    background: #fff;
+    border: 1px solid #7cb28a;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #7cb28a;
+    display: inline-block;
+    text-align: center;
+    padding-top: 6px;
+    opacity: 0;
+    transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -webkit-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+}
+
+.arrow-left:hover, .arrow-right:hover {
+    /*background: #7cb28a;
+    color: #fff;*/
+}
+
+.arrow-left {
+    left: 40px;
+}
+
+.arrow-right {
+    right: 40px;
+}
+
+.swiper-container:hover .arrow-left, .swiper-container:hover .arrow-right {
+    opacity: 1;
+}
+

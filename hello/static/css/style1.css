@@ -1,0 +1,50 @@
+.page1
+{
+	/* background-image: url('bg.jpg'); */
+	
+	max-width: 100%;
+	min-height: 650px;
+	margin-top: -16px;
+}
+.iitbhu_technex_logo_1
+{
+	margin-top: 194px;
+	margin-left: 50px;
+	width: 12%;
+}
+.celebrating_innovation
+{
+	opacity: 0.7;
+	margin-right: -70px;
+	width: 100%;
+	float: right;
+}
+
+#cele_logo{
+	float: right;
+	width: 70%;
+}
+
+#logo_pic{
+	width: 100%;
+	margin:0;
+}
+.sponsers
+{
+	 margin-top: 11%;
+	 
+	  
+}
+.sponsericon
+{
+	   height: 10%;
+	   width: 5%;
+	   margin-left: 60px;
+}
+
+.sponsericon1
+{
+	   height: 10%;
+	   width: 9%;
+	   margin-left: 60px;
+}

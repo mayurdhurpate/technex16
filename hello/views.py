@@ -1,12 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from hello.models import User, Event, Team, ParentEvent, Post
+from hello.models import User, Event, Team, ParentEvent, Post,Points
 from .models import Greeting
 
 import json
 # import urllib2
-from oauth2client import client, crypt
-
 # Create your views here.
 def index(request):
     # return HttpResponse('Hello from Python!')
@@ -67,7 +65,9 @@ def signup2(request):
         u=User.objects.get(email=email)
         u.college=college
         u.year=year
+        p=Points.objects.create(user=u)
         u.save()
+        p.save()
         #index(request)
         #return HttpResponse(json.dumps({'reponse':'Registered'}), content_type='application/javascript')
         return HttpResponseRedirect('/')
@@ -83,7 +83,6 @@ def signup3(request):
         u.college=college
         u.year=year
         u.save()
-
         return HttpResponseRedirect('/')
     else:
         return render(request, 'signup3.html')
@@ -114,6 +113,8 @@ def login(request):
             u=User.objects.get(email=email)
             response_dict = {}
             if u.password==password:
+                u.login=0
+                u.save()
                 response = HttpResponseRedirect('/')
                 #response.set_cookie('email',u.email)
                 return response
@@ -126,24 +127,6 @@ def login(request):
     else:
         return render(request,'login.html',{})
 
-def idcheck(request):
-    if request.method=="POST":
-        id = request.POST["id"]
-        print id
-        try:
-            i = User.objects.filter(google_id=id)
-        except:
-            i=None
-
-        response_dict = {}
-        if i:
-            print "USER EXISTS"
-            response_dict.update({'response':"EXIST"})
-        else:
-            response_dict.update({'response': "DO NOT EXIST" })
-        return HttpResponse(json.dumps(response_dict), content_type='application/javascript')
-    else:
-        HttpResponse("FFFFFF")
 
 def google_login(request):
     if request.method=="POST":
@@ -158,7 +141,7 @@ def google_login(request):
             u.save()
             print u
             if u.google_registered:
-                #print "Hello"
+                print "Hello"
                 response_dict.update({'response':"logged in"})
                 response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
                 response.set_cookie('email',email)
@@ -171,6 +154,10 @@ def google_login(request):
                 response_dict.update({'response': "logged in"})
                 response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
                 response.set_cookie('email',email)
+                p=Points.objects.get(user=u)
+                p.google_registerd=True
+                p.save()
+                u.total_points+=10
         except:
             #print "In except"
             u=User.objects.create(name=name,
@@ -181,12 +168,17 @@ def google_login(request):
                                             year='2',
                                             image_url=image_url,
                                             google_id=google_id)
+            p=Points.objects.create(user=u)
             response_dict.update({'response':'First step done'})
             response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
             response.set_cookie('email',u.email)
+            p.google_registerd=True
+            p.save()
+            u.total_points+=10
+            u.login=1
         u.google_registered=True
         u.save()
-        print response
+        #print response
         return response
 
 def facebook_login(request):
@@ -217,6 +209,10 @@ def facebook_login(request):
                 response_dict.update({'response': "logged in"})
                 response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
                 response.set_cookie('email',email)
+                p=Points.objects.get(user=u)
+                u.total_points+=20
+                p.facebook_registered=True
+                p.save()
         except:
             #print "In except"
             u=User.objects.create(name=name,
@@ -228,10 +224,15 @@ def facebook_login(request):
                                             image_url=image_url,
                                             facebook_id=facebook_id,
                                             facebook_acesstoken=facebook_acesstoken)
+            p=Points.objects.create(user=u)
             response_dict.update({'response':'First step done'})
             response=HttpResponse(json.dumps(response_dict), content_type='application/javascript')
             response.set_cookie('email',u.email)
+            u.total_points+=20
+            p.facebook_registered=True
+            p.save()
         u.facebook_registered = True
+        u.login=2
         u.save()
         return response
 
@@ -253,20 +254,44 @@ def teamreg(request):
 
         if team_member1_e != '':
             team_member1 = User.objects.get(email=team_member1_e)
+            p2=Points.objects.get(user=team_member1)
+            p2.event_register+=15
+            team_member1.total_points+=15
             t.team_members.add(team_member1)
+            team_member1.save()
+            p2.save()
         if team_member2_e != '':
             team_member2 = User.objects.get(email=team_member2_e)
+            p3=Points.objects.get(user=team_member2)
+            p3.event_register+=15
+            team_member2.total_points+=15
             t.team_members.add(team_member2)
+            team_member2.save()
+            p3.save()
         if team_member3_e != '':
             team_member3 = User.objects.get(email=team_member3_e)
+            p4=Points.objects.get(user=team_member3)
+            p4.event_register+=15
+            team_member3.total_points+=15
             t.team_members.add(team_member3)
+            team_member3.save()
+            p4.save()
         if team_member4_e != '':
             team_member4 = User.objects.get(email=team_member4_e)
+            p5=Points.objects.get(user=team_member4)
+            p5.event_register+=15
+            team_member4.total_points+=15
             t.team_members.add(team_member4)
+            team_member4.save()
+            p5.save()
         t.save()
-
+        team_leader=User.objects.get(email=team_leader)
+        p1=Points.objects.get(user=team_leader)
+        p1.event_register+=15
+        team_leader.total_points+=15
+        team_leader.save()
+        p1.save()
         return HttpResponseRedirect('/')
-
     else:
         event_list = Event.objects.all()
         #print event_list
@@ -277,10 +302,10 @@ def logout(request):
     if request.method=="POST":
         response_dict={}
         u=User.objects.get(email=email)
-        if(u.google_registered):
+        if u.login==1:
             print "google logout"
             response_dict.update({'response': "google logout"})
-        elif(u.facebook_registered):
+        elif u.login==2:
             response_dict.update({'response': "facebook logout"})
         else:
             response_dict.update({'response':"simple logout"})
@@ -423,24 +448,3 @@ def team_modify(request,team_slug):
 def team_delete(request,team_slug):
     team=Team.objects.filter(slug=team_slug).delete()
     return HttpResponseRedirect('/')
-
-def tokensignin(request):
-    print request.method
-    if request.method == "POST":
-        token = request.POST['idtoken']
-        print token
-        
-        try:
-            idinfo = client.verify_id_token(token, CLIENT_ID)
-            # If multiple clients access the backend server:
-            # if idinfo['aud'] not in [ANDROID_CLIENT_ID, IOS_CLIENT_ID, WEB_CLIENT_ID]:
-            #     raise crypt.AppIdentityError("Unrecognized client.")
-            if idinfo['iss'] not in ['accounts.google.com', 'https://accounts.google.com']:
-                raise crypt.AppIdentityError("Wrong issuer.")
-            if idinfo['hd'] != APPS_DOMAIN_NAME:
-                raise crypt.AppIdentityError("Wrong hosted domain.")
-        except crypt.AppIdentityError, e:
-            print e
-        userid = idinfo['sub']
-
-

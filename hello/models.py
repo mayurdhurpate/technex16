@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 from django.template.defaultfilters import slugify
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
@@ -40,7 +41,6 @@ class ParentEvent(models.Model):
 
 class Event(models.Model):
     name=models.CharField(max_length=100)
-    content=models.TextField()
     parent_event=models.ForeignKey(ParentEvent)
     order=models.IntegerField(default=1)
     slug = models.SlugField(unique=True)
@@ -50,6 +50,17 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+class Event_Options(models.Model):
+    label = models.CharField(max_length=50)
+    content = content=RichTextUploadingField()
+    event = models.ForeignKey(Event)
+    order = models.IntegerField()
+    def __str__(self):
+        return "%s" % (self.label)
+    def __unicode__(self):
+        return u'%s' % (self.label)
+
 
 class Team(models.Model):
     team_name = models.CharField(max_length=100,unique=True)

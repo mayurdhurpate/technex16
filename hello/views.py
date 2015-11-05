@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
-from hello.models import User, Event, Team, ParentEvent, Post,Points
+from hello.models import User, Event, Team, ParentEvent, Post,Points,Event_Options
 from .models import Greeting
+from django.template import RequestContext
 
 import json
 # import urllib2
@@ -448,3 +449,68 @@ def team_modify(request,team_slug):
 def team_delete(request,team_slug):
     team=Team.objects.filter(slug=team_slug).delete()
     return HttpResponseRedirect('/')
+
+def home(request):
+    return render_to_response('index.html',{},RequestContext(request))
+
+def guest_lectures(request):
+    return render_to_response('guest_lectures.html',{},RequestContext(request))
+
+def events(request):
+    data = {"main_event":[]}
+    p = ParentEvent.objects.all().order_by('order')
+    for parent_e in p:
+        a = {"event":str(parent_e.name),"sub_event":[]}
+        events = Event.objects.filter(parent_event=parent_e).order_by('order')
+        b = {}
+        for event in events:
+            b = {}
+            b["name"] = str(event.name)
+            try:
+                event_name = Event_Name.objects.get(name=b["name"])
+                b["mem"] = str(event_name.max_members)
+            except:
+                b["mem"] = str(0)
+            event_options = Event_Options.objects.filter(event=event).order_by('order')
+            d =[]
+            c = {}
+            for event_option in event_options:
+                c[str(event_option.label)] = str(event_option.content)
+            d.append(c)
+            b["data"] = d
+            a["sub_event"].append(b)
+        data["main_event"].append(a)
+    return render_to_response('events.html',{'data':json.dumps(data)},RequestContext(request))
+    return HttpResponse(json.dumps(data), content_type='application/json')
+
+def events2(request):
+    data = {}
+    p = ParentEvent.objects.all().order_by('order')
+    for parent_e in p:
+        a = {"category":[]}
+
+
+def workshops(request):
+    return render_to_response('comingSoon.html',{},RequestContext(request))
+
+def sponsors(request):
+    return render_to_response('previous_sponsors.html',{},RequestContext(request))
+
+def initiative(request):
+    return render_to_response('comingSoon.html',{},RequestContext(request))
+
+def exhibitions(request):
+    return render_to_response('comingSoon.html',{},RequestContext(request))
+
+def intellecx(request):
+    return render_to_response('comingSoon.html',{},RequestContext(request))
+
+def campus_ambassdor(request):
+    return render_to_response('comingSoon.html',{},RequestContext(request))
+#def events(request):
+#    events=Event.objects.all()
+#    return render(request,'events.html',{})
+
+#def event(request,event_slug):
+#    event=Event.objects.get(slug=event_slug)
+

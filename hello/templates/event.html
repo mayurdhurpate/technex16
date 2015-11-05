@@ -1,0 +1,15 @@
+<form role="form" id="blog_form" method = "post" action = '/blogu/{{ category.slug }}/add_blog/' enctype = "multipart/form-data">
+        {% csrf_token %}
+        <textarea name="blog_title" cols="60" rows="1" placeholder="Title..."></textarea><br/>
+        <div id="blog_area_div">
+        {% if quick_blog_text %}
+        <textarea id="blog_area" name="blog_content" value="{{ quick_blog_text }}" cols="60"></textarea>
+        {% else %}
+        <textarea id="blog_area" name="blog_content" cols="60"></textarea>
+        {% endif %}
+    </div><br />
+    <script type="text/javascript">
+    CKEDITOR.replace( 'blog_area' );
+    </script>
+        <button class = "btn btn-primary" type = "submit" name ="submit">Add Blog</button>
+    </form>

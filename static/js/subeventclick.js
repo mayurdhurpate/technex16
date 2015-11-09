@@ -1,63 +1,63 @@
-			var json={
-				"mainEvent":[
-					{
-						"event":"Robonex",
-						"intro":"intro of Robonex",
-						"subEvent":[
-							{
-								"name":"Robowars",
-								"mem":"5",
-								"data":[
-									{
-										"intro":"abc",
-										"contact":"123",
-										"judging":"ABC"
-									}
-								]
-							},
+			// var json={
+			// 	"mainEvent":[
+			// 		{
+			// 			"event":"Robonex",
+			// 			"intro":"intro of Robonex",
+			// 			"subEvent":[
+			// 				{
+			// 					"name":"Robowars",
+			// 					"mem":"5",
+			// 					"data":[
+			// 						{
+			// 							"intro":"abc",
+			// 							"contact":"123",
+			// 							"judging":"ABC"
+			// 						}
+			// 					]
+			// 				},
 
-							{
-								"name":"Pixelate",
-								"mem":"4",
-								"data":[
-									{
-										"intro":"efg",
-										"contact":"456",
-										"rules":"lol"
-									}
-								]
-							}
-						]
-					},
-					{
-						"event":"Extreme Engineering",
-						"intro":"intro of ee",
-						"subEvent":[
-							{
-								"name":"Bridge It",
-								"mem":"6",
-								"data":[
-									{
-										"intro":"hij",
-										"contact":"789"
-									}
-								]
-							},
-							{
-								"name":"abc",
-								"mem":"6",
-								"data":[
-									{
-										"intro":"mno",
-										"contact":"111"
-									}
-								]
-							}
-						]
-					}
+			// 				{
+			// 					"name":"Pixelate",
+			// 					"mem":"4",
+			// 					"data":[
+			// 						{
+			// 							"intro":"efg",
+			// 							"contact":"456",
+			// 							"rules":"lol"
+			// 						}
+			// 					]
+			// 				}
+			// 			]
+			// 		},
+			// 		{
+			// 			"event":"Extreme Engineering",
+			// 			"intro":"intro of ee",
+			// 			"subEvent":[
+			// 				{
+			// 					"name":"Bridge It",
+			// 					"mem":"6",
+			// 					"data":[
+			// 						{
+			// 							"intro":"hij",
+			// 							"contact":"789"
+			// 						}
+			// 					]
+			// 				},
+			// 				{
+			// 					"name":"abc",
+			// 					"mem":"6",
+			// 					"data":[
+			// 						{
+			// 							"intro":"mno",
+			// 							"contact":"111"
+			// 						}
+			// 					]
+			// 				}
+			// 			]
+			// 		}
 
-				]
-			};
+			// 	]
+			// };
 
 
 			function set_category(id){
@@ -69,11 +69,11 @@
 				var half=Math.round(length/2);
 				for(var i=0;i<length;i++){
 					if(i<half){
-						$("#main_ul").append("<li id='e_"+i+"' class='sub_e'></li>");
-						$("#e_"+i).text(json.mainEvent[pos].subEvent[i].name);
+						$("#main_ul").append("<li id='e_"+(i+1)+"' class='sub_e'></li>");
+						$("#e_"+(i+1)).text(json.mainEvent[pos].subEvent[i].name);
 					}else{
-						$("#side_ul").append("<li id='e_"+i+"' class='sub_e'></li>");
-						$("#e_"+i).text(json.mainEvent[pos].subEvent[i].name);
+						$("#side_ul").append("<li id='e_"+(i+1)+"' class='sub_e'></li>");
+						$("#e_"+(i+1)).text(json.mainEvent[pos].subEvent[i].name);
 					};
 
 				};
@@ -89,7 +89,7 @@
 				//var name=$(".backadd").attr("id");
 				//switch(pos){
 					//case 0:
-					$("#icons").css("background",'url(static/css/images/'+name+'.png) no-repeat center');//break;
+					$("#icons").css("background",'url(/static/css/images/'+name+'.png) no-repeat center');//break;
 					// case 1:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
 					// case 2:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
 					// case 3:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;

@@ -454,10 +454,12 @@ button{
 }
 
 .mem_pic{
-	width: 137px;
+	width: 111px;
 	z-index: 55;
 	margin-bottom: 5px;
-	margin-top: 10px;
+	margin-top: 25px;
+	left: 50%;
+	margin-left: 15px;
 }
 
 .t_img{

@@ -114,9 +114,11 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
+PROJECT_DIR = os.path.dirname(os.path.dirname(__file__))
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'static').replace('\\','/'),
+    os.path.join(PROJECT_DIR, 'static').replace('\\','/'),
 )
+
 
 # Simplified static file serving.
 # https://warehouse.python.org/project/whitenoise/

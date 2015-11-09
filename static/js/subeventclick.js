@@ -1,3 +1,4 @@
+			//FROM HELLO
 			// var json={
 			// 			"category":[
 			// 				{
@@ -30,6 +31,7 @@
 			// 				}
 			// 			]
 			// 		};
+
 			var json={
 				"mainEvent":[
 					{
@@ -105,9 +107,10 @@
 					$("#pr1_").html('');$("#pr2_").html('');$("#last_ul").html('');$("#finalMiddle").html('');
 					var z=parseInt(yo.charAt(yo.length-1));
 					var keys=Object.keys(json.mainEvent[left].subEvent[z-1].data[0]);
-					li(keys);$("#pr1").addClass("backadd"); 
+					li(keys);
+					$("#pr1").addClass("backadd"); 
 					div(keys,left,z);
-					$('#pr1_').show();jj
+					$('#pr1_').show();
 			};
 
 			function div(keys,left,z){
@@ -119,10 +122,12 @@
 			}
 
 			function li(keys){
+
 				for(var i=1;i<=keys.length;i++){
 					$("#last_ul").append("<li class='pr' id='pr"+i+"'></li>");
 					$("#pr"+i).text(keys[i-1]);
 				};
+				console.log('li');
 				$(".pr").click(function(event){pr(event.target.id);});
 			}
 

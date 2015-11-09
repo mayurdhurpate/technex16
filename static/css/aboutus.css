@@ -29,8 +29,8 @@
 @font-face 
 {
   font-family: 'ankita';
-  src: url(fonts/BLADRMF_0.TTF);
-}
+  src: url(fonts/BLADRMF_0.ttf);
+  }
 
 .allevents
 {

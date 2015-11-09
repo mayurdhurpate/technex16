@@ -457,10 +457,10 @@ def guest_lectures(request):
     return render_to_response('guest_lectures.html',{},RequestContext(request))
 
 def events(request):
-    data = {"main_event":[]}
+    data = {"mainEvent":[]}
     p = ParentEvent.objects.all().order_by('order')
     for parent_e in p:
-        a = {"event":unicode(parent_e.name),"sub_event":[]}
+        a = {"event":unicode(parent_e.name),"subEvent":[]}
         events = Event.objects.filter(parent_event=parent_e).order_by('order')
         b = {}
         for event in events:
@@ -478,8 +478,8 @@ def events(request):
                 c[unicode(event_option.label)] = unicode(event_option.content)
             d.append(c)
             b["data"] = d
-            a["sub_event"].append(b)
-        data["main_event"].append(a)
+            a["subEvent"].append(b)
+        data["mainEvent"].append(a)
     return render_to_response('events.html',{'data':json.dumps(data)},RequestContext(request))
     return HttpResponse(json.dumps(data), content_type='application/json')
 

@@ -58,8 +58,7 @@
 
 			// 	]
 			// };
-
-			 
+						 
 			$(document).ready(function(){
 				$(".events").click(function(event){set_text(event.target.id)});
 			});

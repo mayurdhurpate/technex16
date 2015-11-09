@@ -129,7 +129,7 @@
 					$("#finalMiddle").animate({height: '800px'});
 					$("#pr1_").html('');$("#pr2_").html('');$("#last_ul").html('');$("#finalMiddle").html('');
 					var z=parseInt(yo.charAt(yo.length-1));
-					var keys=Object.keys(json.mainEvent[left].subEvent[z].data[0]);
+					var keys=Object.keys(json.mainEvent[left].subEvent[z-1].data[0]);
 					li(keys);
 					$("#pr1").addClass("backadd"); 
 					div(keys,left,z);

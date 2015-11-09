@@ -3,7 +3,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 from hello.models import User, Event, Team, ParentEvent, Post,Points,Event_Options
 from .models import Greeting
 from django.template import RequestContext
-
+import collections
 import json
 # import urllib2
 # Create your views here.
@@ -473,7 +473,7 @@ def events(request):
                 b["mem"] = unicode(0)
             event_options = Event_Options.objects.filter(event=event).order_by('order')
             d =[]
-            c = {}
+            c = collections.OrderedDict()
             for event_option in event_options:
                 c[unicode(event_option.label)] = unicode(event_option.content)
             d.append(c)

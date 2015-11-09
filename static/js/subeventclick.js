@@ -1,63 +1,63 @@
-			var json={
-				"mainEvent":[
-					{
-						"event":"Robonex",
-						"intro":"intro of Robonex",
-						"subEvent":[
-							{
-								"name":"Robowars",
-								"mem":"5",
-								"data":[
-									{
-										"intro":"abc",
-										"contact":"123",
-										"judging":"ABC"
-									}
-								]
-							},
+			// var json={
+			// 	"mainEvent":[
+			// 		{
+			// 			"event":"Robonex",
+			// 			"intro":"intro of Robonex",
+			// 			"subEvent":[
+			// 				{
+			// 					"name":"Robowars",
+			// 					"mem":"5",
+			// 					"data":[
+			// 						{
+			// 							"intro":"abc",
+			// 							"contact":"123",
+			// 							"judging":"ABC"
+			// 						}
+			// 					]
+			// 				},
 
-							{
-								"name":"Pixelate",
-								"mem":"4",
-								"data":[
-									{
-										"intro":"efg",
-										"contact":"456",
-										"rules":"lol"
-									}
-								]
-							}
-						]
-					},
-					{
-						"event":"Extreme Engineering",
-						"intro":"intro of ee",
-						"subEvent":[
-							{
-								"name":"Bridge It",
-								"mem":"6",
-								"data":[
-									{
-										"intro":"hij",
-										"contact":"789"
-									}
-								]
-							},
-							{
-								"name":"abc",
-								"mem":"6",
-								"data":[
-									{
-										"intro":"mno",
-										"contact":"111"
-									}
-								]
-							}
-						]
-					}
+			// 				{
+			// 					"name":"Pixelate",
+			// 					"mem":"4",
+			// 					"data":[
+			// 						{
+			// 							"intro":"efg",
+			// 							"contact":"456",
+			// 							"rules":"lol"
+			// 						}
+			// 					]
+			// 				}
+			// 			]
+			// 		},
+			// 		{
+			// 			"event":"Extreme Engineering",
+			// 			"intro":"intro of ee",
+			// 			"subEvent":[
+			// 				{
+			// 					"name":"Bridge It",
+			// 					"mem":"6",
+			// 					"data":[
+			// 						{
+			// 							"intro":"hij",
+			// 							"contact":"789"
+			// 						}
+			// 					]
+			// 				},
+			// 				{
+			// 					"name":"abc",
+			// 					"mem":"6",
+			// 					"data":[
+			// 						{
+			// 							"intro":"mno",
+			// 							"contact":"111"
+			// 						}
+			// 					]
+			// 				}
+			// 			]
+			// 		}
 
-				]
-			};
+			// 	]
+			// };
 
 
 			function set_category(id){

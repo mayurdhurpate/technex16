@@ -69,11 +69,11 @@
 				var half=Math.round(length/2);
 				for(var i=0;i<length;i++){
 					if(i<half){
-						$("#main_ul").append("<li id='e_"+i+"' class='sub_e'></li>");
-						$("#e_"+i).text(json.mainEvent[pos].subEvent[i].name);
+						$("#main_ul").append("<li id='e_"+(i+1)+"' class='sub_e'></li>");
+						$("#e_"+(i+1)).text(json.mainEvent[pos].subEvent[i].name);
 					}else{
-						$("#side_ul").append("<li id='e_"+i+"' class='sub_e'></li>");
-						$("#e_"+i).text(json.mainEvent[pos].subEvent[i].name);
+						$("#side_ul").append("<li id='e_"+(i+1)+"' class='sub_e'></li>");
+						$("#e_"+(i+1)).text(json.mainEvent[pos].subEvent[i].name);
 					};
 
 				};

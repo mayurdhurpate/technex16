@@ -1,95 +1,63 @@
-			//FROM HELLO
+
+
 			// var json={
-			// 			"category":[
+			// 	"mainEvent":[
+			// 		{
+			// 			"event":"Robonex",
+			// 			"subEvent":[
 			// 				{
-			// 					"events":[
+			// 					"name":"Robowars",
+			// 					"mem":"5",
+			// 					"data":[
 			// 						{
-			// 							"intro":"bla bla bla",
-			// 							"contact":"alb alb alb"
-			// 						},
-			// 						{
-			// 							"intro":"bla bla",
-			// 							"contact":"alb alb"
-			// 						},
-			// 						{
-			// 							"intro":"bla",
-			// 							"contact":"alb"
+			// 							"intro":"abc",
+			// 							"contact":"123",
+			// 							"judging":"ABC"
 			// 						}
 			// 					]
 			// 				},
+
 			// 				{
-			// 					"events":[
+			// 					"name":"Pixelate",
+			// 					"mem":"4",
+			// 					"data":[
 			// 						{
-			// 							"intro":"blah blah blah",
-			// 							"contact":"halb halb halb"
-			// 						},
-			// 						{
-			// 							"intro":"blah blah",
-			// 							"contact":"halb halb"
+			// 							"intro":"efg",
+			// 							"contact":"456",
+			// 							"rules":"lol"
 			// 						}
 			// 					]
 			// 				}
 			// 			]
-			// 		};
+			// 		},
+			// 		{
+			// 			"event":"Extreme Engineering",
+			// 			"subEvent":[
+			// 				{
+			// 					"name":"Bridge It",
+			// 					"mem":"6",
+			// 					"data":[
+			// 						{
+			// 							"intro":"hij",
+			// 							"contact":"789"
+			// 						}
+			// 					]
+			// 				},
+			// 				{
+			// 					"name":"abc",
+			// 					"mem":"6",
+			// 					"data":[
+			// 						{
+			// 							"intro":"mno",
+			// 							"contact":"111"
+			// 						}
+			// 					]
+			// 				}
+			// 			]
+			// 		}
 
-			var json={
-				"mainEvent":[
-					{
-						"event":"Robonex",
-						"subEvent":[
-							{
-								"name":"Robowars",
-								"mem":"5",
-								"data":[
-									{
-										"intro":"abc",
-										"contact":"123",
-										"judging":"ABC"
-									}
-								]
-							},
-
-							{
-								"name":"Pixelate",
-								"mem":"4",
-								"data":[
-									{
-										"intro":"efg",
-										"contact":"456",
-										"rules":"lol"
-									}
-								]
-							}
-						]
-					},
-					{
-						"event":"Extreme Engineering",
-						"subEvent":[
-							{
-								"name":"Bridge It",
-								"mem":"6",
-								"data":[
-									{
-										"intro":"hij",
-										"contact":"789"
-									}
-								]
-							},
-							{
-								"name":"abc",
-								"mem":"6",
-								"data":[
-									{
-										"intro":"mno",
-										"contact":"111"
-									}
-								]
-							}
-						]
-					}
-
-				]
-			};
+			// 	]
+			// };
 
 			 
 			$(document).ready(function(){

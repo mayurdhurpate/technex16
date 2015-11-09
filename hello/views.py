@@ -460,22 +460,22 @@ def events(request):
     data = {"main_event":[]}
     p = ParentEvent.objects.all().order_by('order')
     for parent_e in p:
-        a = {"event":str(parent_e.name),"sub_event":[]}
+        a = {"event":unicode(parent_e.name),"sub_event":[]}
         events = Event.objects.filter(parent_event=parent_e).order_by('order')
         b = {}
         for event in events:
             b = {}
-            b["name"] = str(event.name)
+            b["name"] = unicode(event.name)
             try:
                 event_name = Event_Name.objects.get(name=b["name"])
-                b["mem"] = str(event_name.max_members)
+                b["mem"] = unicode(event_name.max_members)
             except:
-                b["mem"] = str(0)
+                b["mem"] = unicode(0)
             event_options = Event_Options.objects.filter(event=event).order_by('order')
             d =[]
             c = {}
             for event_option in event_options:
-                c[str(event_option.label)] = str(event_option.content)
+                c[unicode(event_option.label)] = unicode(event_option.content)
             d.append(c)
             b["data"] = d
             a["sub_event"].append(b)

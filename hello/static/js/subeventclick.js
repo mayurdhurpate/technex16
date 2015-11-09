@@ -1,7 +1,154 @@
-// var json={
+			//FROM HELLO
+			// var json={
+			// 			"category":[
+			// 				{
+			// 					"events":[
+			// 						{
+			// 							"intro":"bla bla bla",
+			// 							"contact":"alb alb alb"
+			// 						},
+			// 						{
+			// 							"intro":"bla bla",
+			// 							"contact":"alb alb"
+			// 						},
+			// 						{
+			// 							"intro":"bla",
+			// 							"contact":"alb"
+			// 						}
+			// 					]
+			// 				},
+			// 				{
+			// 					"events":[
+			// 						{
+			// 							"intro":"blah blah blah",
+			// 							"contact":"halb halb halb"
+			// 						},
+			// 						{
+			// 							"intro":"blah blah",
+			// 							"contact":"halb halb"
+			// 						}
+			// 					]
+			// 				}
+			// 			]
+			// 		};
 
-				// "main_event": [{"event": "Robotics", "sub_event": [{"mem": "0", "data": [{"intro": "line","contact":"123"}], "name": "Line Follower"}, {"mem": "0", "data": [{"intro": "height","contact":"123"}], "name": "Robowars"}]}]};
-			/*var json={
+			var json={
+				"mainEvent":[
+					{
+						"event":"Robonex",
+						"subEvent":[
+							{
+								"name":"Robowars",
+								"mem":"5",
+								"data":[
+									{
+										"intro":"abc",
+										"contact":"123",
+										"judging":"ABC"
+									}
+								]
+							},
+
+							{
+								"name":"Pixelate",
+								"mem":"4",
+								"data":[
+									{
+										"intro":"efg",
+										"contact":"456",
+										"rules":"lol"
+									}
+								]
+							}
+						]
+					},
+					{
+						"event":"Extreme Engineering",
+						"subEvent":[
+							{
+								"name":"Bridge It",
+								"mem":"6",
+								"data":[
+									{
+										"intro":"hij",
+										"contact":"789"
+									}
+								]
+							},
+							{
+								"name":"abc",
+								"mem":"6",
+								"data":[
+									{
+										"intro":"mno",
+										"contact":"111"
+									}
+								]
+							}
+						]
+					}
+
+				]
+			};
+
+			 
+			$(document).ready(function(){
+				$(".events").click(function(event){set_text(event.target.id)});
+			});
+
+
+			function set_text(yo){
+					//pr("pr1");
+					var left=$('.left').index($('.backadd')[0]);
+					$('.events').removeClass('backadd');
+					$('#'+yo).addClass("backadd");
+					$('#sub'+yo.charAt(yo.length-1)).addClass('backadd')
+					$("#finalMiddle").animate({height: '800px'});
+					$("#pr1_").html('');$("#pr2_").html('');$("#last_ul").html('');$("#finalMiddle").html('');
+					var z=parseInt(yo.charAt(yo.length-1));
+					var keys=Object.keys(json.mainEvent[left].subEvent[z-1].data[0]);
+					li(keys);
+					$("#pr1").addClass("backadd"); 
+					div(keys,left,z);
+					$('#pr1_').show();
+			};
+
+			function div(keys,left,z){
+				for(var i=1;i<=keys.length;i++){
+					$('#finalMiddle').append("<div id='pr"+i+"_' class='pr_data' style='display:none'></div>");
+					var x=json.mainEvent[left].subEvent[z-1].data[0][keys[i-1]];
+					$("#pr"+i+"_").append("<br>"+x);
+				}
+			}
+
+			function li(keys){
+
+				for(var i=1;i<=keys.length;i++){
+					$("#last_ul").append("<li class='pr' id='pr"+i+"'></li>");
+					$("#pr"+i).text(keys[i-1]);
+				};
+				console.log('li');
+				$(".pr").click(function(event){pr(event.target.id);});
+			}
+
+			function pr(sup){
+					$(".pr").removeClass("backadd");
+					$(".pr_data").hide();
+					$("#"+sup+"_").show();
+					$('#'+sup).addClass('backadd');
+				};
+
+			$(document).ready(function(){
+				$(".sub_e").click(function(event){
+					pr("pr1");
+					$('#wrapper').hide();
+					$("#finalMiddle").show();
+					set_text(event.target.id);
+					
+				});
+			});
+
+/*			var json={
 						"category":[
 							{
 								"events":[
@@ -65,7 +212,7 @@
 							}
 						]
 					};
-*/
+
 			$(document).ready(function(){
 				$(".events").click(function(event){set_text(event.target.id)});
 			});
@@ -85,8 +232,8 @@
 					$("#pr1").addClass("backadd"); 
 					$("#intro").html('');$("#contact").html('');
 					var z=parseInt(yo.charAt(yo.length-1));
-					var intro="<br>"+json.main_event[left].sub_event[z-1].data[0].Introduction;
-					var contact="<br>"+json.main_event[left].sub_event[z-1].data[0].Contact;
+					var intro="<br>"+json.category[left].events[z-1].intro;
+					var contact="<br>"+json.category[left].events[z-1].contact;
 					$("#intro").append(intro);
 					$("#contact").append(contact);					
 			};
@@ -124,3 +271,4 @@
 				$("#pr1").click(pr1);
 			});
 		});
+*/

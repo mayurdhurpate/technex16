@@ -365,11 +365,11 @@
 		</div>
 		
 		<div id= "LastElement">
-		<ul style="cursor: pointer;">
-			<li id= "pr1">Introduction</li>
-			<!-- <li id= "pr2">Problem statement</li>
-			 --><li id= "pr3">Contact us</li>
-			<!-- <li id= "pr4">Other</li> -->
+		<ul style="cursor: pointer;" id="last_ul">
+			<!-- <li id= "pr1">Introduction</li>
+			<li id= "pr2">Problem statement</li>
+			<li id= "pr3">Contact us</li>
+			-->
 		</ul>
 		</div>
 		<div id= "finalMiddle">
@@ -378,31 +378,31 @@
 		</div></font>
 
 		<script type="text/javascript">		
-		function function1(){
-			setTimeout(function(){
-			var left_avail=$(".left");
-			var checked=$(".backadd")[0];
-			var pos=left_avail.index(checked);
-			var icons=$("#icons");
-			var name=$(".backadd").attr("id");
-			console.log(name);
-			console.log("UP");
-			var back="background";
-			switch(pos){
-				case 0:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 1:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 2:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 3:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 4:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 5:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 6:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 7:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 8:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-				case 9:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;}
-			},1);
-			
+			function function1(){
+				setTimeout(function(){
+				var left_avail=$(".left");
+				var checked=$(".backadd")[0];
+				var pos=left_avail.index(checked);
+				var icons=$("#icons");
+				var name=$(".backadd").attr("id");
+				console.log(name);
+				console.log("UP");
+				var back="background";
+				switch(pos){
+					case 0:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 1:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 2:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 3:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 4:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 5:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 6:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 7:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 8:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
+					case 9:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;}
+				},1);
+				
 
-		}
+			}
 		</script>
 	</body>
 </html>

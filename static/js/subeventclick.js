@@ -89,7 +89,7 @@
 				//var name=$(".backadd").attr("id");
 				//switch(pos){
 					//case 0:
-					$("#icons").css("background",'url(static/css/images/'+name+'.png) no-repeat center');//break;
+					$("#icons").css("background",'url(/static/css/images/'+name+'.png) no-repeat center');//break;
 					// case 1:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
 					// case 2:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
 					// case 3:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;

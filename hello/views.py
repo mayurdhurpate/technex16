@@ -460,7 +460,7 @@ def events(request):
     data = {"mainEvent":[]}
     p = ParentEvent.objects.all().order_by('order')
     for parent_e in p:
-        a = {"event":unicode(parent_e.name),"subEvent":[]}
+        a = {"event":unicode(parent_e.name),"intro":unicode(parent_e.intro),"subEvent":[]}
         events = Event.objects.filter(parent_event=parent_e).order_by('order')
         b = {}
         for event in events:

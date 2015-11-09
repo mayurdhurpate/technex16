@@ -1,8 +1,8 @@
-djdatabaseurl==0.3.0
+dj-database-url==0.3.0
 Django==1.8.1
-djangopostgrespool==0.3.0
+django-postgrespool==0.3.0
 gunicorn==19.3.0
 psycopg2==2.6
 SQLAlchemy==1.0.4
 whitenoise==1.0.6
-djangockeditor
+django-ckeditor

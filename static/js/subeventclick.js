@@ -62,18 +62,18 @@
 
 			function set_category(id){
 				$("#main_ul").html("<ul id='side_ul' style='left: 200px; top: 0;'>");
-				var pos=parseInt((id).charAt(4))-1;
+				var pos=parseInt((id).charAt(4));
 				$('#category_intro').text(json.mainEvent[pos].intro);
 				$('#category_name').text(json.mainEvent[pos].event);
 				var length=json.mainEvent[pos].subEvent.length;
 				var half=Math.round(length/2);
-				for(var i=1;i<=length;i++){
-					if(i<=half){
+				for(var i=0;i<length;i++){
+					if(i<half){
 						$("#main_ul").append("<li id='e_"+i+"' class='sub_e'></li>");
-						$("#e_"+i).text(json.mainEvent[pos].subEvent[i-1].name);
+						$("#e_"+i).text(json.mainEvent[pos].subEvent[i].name);
 					}else{
 						$("#side_ul").append("<li id='e_"+i+"' class='sub_e'></li>");
-						$("#e_"+i).text(json.mainEvent[pos].subEvent[i-1].name);
+						$("#e_"+i).text(json.mainEvent[pos].subEvent[i].name);
 					};
 
 				};
@@ -105,7 +105,7 @@
 			};
 
 			$(document).ready(function(){
-				set_category("item1");
+				set_category("item0");
 			});
 
 

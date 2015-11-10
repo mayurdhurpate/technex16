@@ -29,9 +29,11 @@
         <script>
 
             function function1(){
-             $('#team').addClass('hidden').removeClass('shown');
+             //$('#team').addClass('hidden').removeClass('shown');
+                $("#team").fadeOut(); 
              var t=$('#team');
              t.html("<div id='container2'><p id='team_name'></p><div id='wrapper' style='width:90%;margin:auto;height:100%'></div></div>");
+
             };
             window.onload = function() {
                 var dropZoneOne = document.querySelector('#drop-target-one');
@@ -218,7 +220,8 @@
                                 break;
                         };
                         
-                        $('#team').addClass('shown').removeClass('hidden');
+                        //$('#team').addClass('shown').removeClass('hidden');
+                        $('#team').fadeIn();
                 }            
                 });
             });
@@ -275,7 +278,7 @@
                     </ul>                          
                 </div>
                 
-                <hr id="head_hr">
+                <!-- <hr id="head_hr"> -->
                 </div>
             </header>
 
@@ -2675,22 +2678,22 @@
                                   
                                          <!-- First Slide -->   
                                          <div class="swiper-slide swiper-slide-prev" data-swiper-slide-index="0" style="width: 260px; transform: translate3d(20px, 0px, -240px) rotateX(0deg) rotateY(-60deg); z-index: -1; transition-duration: 0ms;">
-                                            <img class="img-responsive" src="static/css/images/carousel/phone1.png" alt="" style="width: 250px;">
+                                            <img class="img-responsive" src="static/css/images/carousel/phone1.png" alt="" style="width:auto;">
                                          </div>
                                          
                                          <!-- Second Slide --> 
                                          <div class="swiper-slide swiper-slide-active" data-swiper-slide-index="1" style="width: 260px; transform: translate3d(10px, 0px, -120px) rotateX(0deg) rotateY(-30deg); z-index: 0; transition-duration: 0ms;">
-                                            <img class="img-responsive" src="static/css/images/carousel/phone2.png" alt="" style="width: 250px;">
+                                            <img class="img-responsive" src="static/css/images/carousel/phone2.png" alt="" style="width:auto;">
                                          </div>
                                          
                                          <!-- Thrid Slide --> 
                                          <div class="swiper-slide swiper-slide-next" data-swiper-slide-index="2" style="width: 260px; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg); z-index: 1; transition-duration: 0ms;">
-                                            <img class="img-responsive" src="static/css/images/carousel/phone3.png" alt="" style="width: 250px;">
+                                            <img class="img-responsive" src="static/css/images/carousel/phone3.png" alt="" style="width:auto;">
                                          </div>
                                          
                                          <!-- Forth Slide --> 
                                          <div class="swiper-slide swiper-slide-next" data-swiper-slide-index="2" style="width: 260px; transform: translate3d(0px, 0px, 0px) rotateX(0deg) rotateY(0deg); z-index: 1; transition-duration: 0ms;">
-                                            <img class="img-responsive" src="static/css/images/carousel/phone4.png" alt="" style="width: 250px;">
+                                            <img class="img-responsive" src="static/css/images/carousel/phone4.png" alt="" style="width:auto;">
                                          </div>
                                    
                                       <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="0" style="width: 260px; transform: translate3d(-10px, 0px, -120px) rotateX(0deg) rotateY(30deg); z-index: 0; transition-duration: 0ms;">
@@ -2834,7 +2837,7 @@
                                     <div class="trans10"><div draggable="true" class="dragged  imaged" id="nine"><img src="static/css/images/DnD/Icons/events.png" class="team_icon" style="height:80px;margin-top:5px"></div><div><p>Events</p></div></div>
                                 </div>
                         </div>
-                        <div id="team" class="hidden">
+                        <div id="team" style="display:none">
                             <div id="container2">
                                 <p id="team_name"></p>
                                 <div id="wrapper" style='width:90%;margin:auto;height:100%'></div>

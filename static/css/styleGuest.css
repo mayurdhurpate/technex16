@@ -1,4 +1,8 @@
 
+body{
+	overflow: hidden;
+}
+
 @font-face 
 {
   font-family: 'trebuc_1';
@@ -40,7 +44,7 @@ header{
 	position: fixed;
 	top: 0;
 	left: 0;
-	height: 100px;
+	height: 70px;
 	background: rgb(1,5,32);
 	z-index: 100;
 	margin:0 auto 0 auto;
@@ -268,5 +272,5 @@ header{
 
 #wrapper{
 	position: relative;
-	top: 125px;
+	top: 80px;
 }

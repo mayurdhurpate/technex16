@@ -40,6 +40,15 @@ jQuery(document).ready(function($){
 		// });
 
 
+		$(window).bind('mousewheel DOMMouseScroll', function(event){
+		    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+		        prevSection();
+		    }
+		    else {
+		        nextSection();
+		    }
+		});
+
 
 		$('#down').on('click',nextSection)		
 		prevArrow.on('click', prevSection);
@@ -154,7 +163,7 @@ function setTop(dir) {
 	var card=$('.cd-section-card');
 	if (dir=="prev"){
 		switch(pos){
-		case 1: sectionHolder.css("top","0vh");$("#iitbhu_logo_left").attr('src','static/css/images/logo_technex_white.png');
+		case 1: sectionHolder.css("top","0vh");
 		break;
 		case 2: sectionHolder.css("top","-100vh");
 		break;
@@ -162,7 +171,7 @@ function setTop(dir) {
 				if (card.css('top')=='0px') {
 					card.css('top','100vh');
 				}else{
-					sectionHolder.css("top","-200vh");	
+					sectionHolder.css("top","-200vh");$("#iitbhu_logo_left").attr('src','static/css/images/logo_technex_white.png');
 				};
 		break;
 		case 4: sectionHolder.css("top","-300vh");
@@ -172,11 +181,12 @@ function setTop(dir) {
 	}
 	else{
 		switch(pos){
-		case 0: sectionHolder.css("top","-100vh");$("#iitbhu_logo_left").attr('src','static/css/images/logo_technex_white_black.png');
+		case 0: sectionHolder.css("top","-100vh");//$("#iitbhu_logo_left").attr('src','static/css/images/logo_technex_white_black.png');
 			break;
 		case 1: sectionHolder.css("top","-200vh");
 		break;
-		case 2: sectionHolder.css("top","-300vh");console.log('out-2');
+		case 2: sectionHolder.css("top","-300vh");$("#iitbhu_logo_left").attr('src','static/css/images/logo_technex_white_black.png');
+
 		break;
 		case 3: //sectionHolder.css("top","-400vh");
 		console.log('out');

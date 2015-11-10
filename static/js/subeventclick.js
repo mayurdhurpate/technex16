@@ -86,19 +86,9 @@
 			function function1(name){
 				setTimeout(function(){
 				var pos=$(".left").index($(".backadd")[0]);
-				//var name=$(".backadd").attr("id");
-				//switch(pos){
-					//case 0:
-					$("#icons").css("background",'url(/static/css/images/'+name+'.png) no-repeat center');//break;
-					// case 1:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 2:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 3:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 4:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 5:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 6:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 7:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 8:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;
-					// case 9:icons.css("background",'url(static/css/images/'+name+'.png) no-repeat center');break;}
+				$("#icons").hide();
+				$("#icons").css("background",'url(/static/css/images/'+name+'.png) no-repeat center');
+				$("#icons").fadeIn();
 				},1);
 				
 

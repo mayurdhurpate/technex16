@@ -11,11 +11,11 @@ body{
 			padding-top: 10px;
 			padding-bottom: 10px;
 			color: white;
-			-webkit-transition: all 1s linear;
-			-moz-transition: all 1s linear;
-			-ms-transition: all 1s linear;
-			-o-transition: all 1s linear;
-			transition: all 1s linear;
+			-webkit-transition: all 0.51s linear;
+			-moz-transition: all 0.51s linear;
+			-ms-transition: all 0.51s linear;
+			-o-transition: all 0.51s linear;
+			transition: all 0.51s linear;
 			border-bottom: 1px solid white;
 			cursor: pointer;
 		}
@@ -79,6 +79,15 @@ body{
 			text-align: center;
 			padding: 4px 0 4px 4px;
 			font-size: 20px;
+			-webkit-transition: all 0.51s linear;
+			-moz-transition: all 0.51s linear;
+			-ms-transition: all 0.51s linear;
+			-o-transition: all 0.51s linear;
+			transition: all 0.51s linear;
+		}
+
+		#LastElement ul li:hover{
+			background: rgba(0,0,0,0.3);
 		}
 		
 		#MiddleElement3{
@@ -109,6 +118,15 @@ body{
 			text-align: center;
 			padding: 10px;
 			font-size: 20px;
+			-webkit-transition: all 0.51s linear;
+			-moz-transition: all 0.51s linear;
+			-ms-transition: all 0.51s linear;
+			-o-transition: all 0.51s linear;
+			transition: all 0.51s linear;
+		}
+
+		#middle ul li:hover{
+			background: rgba(0,0,0,0.3);
 		}
 		#finalMiddle{
 			width: 56%;

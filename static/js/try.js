@@ -2,7 +2,7 @@ jQuery(document).ready(function($){
 
 	//variables
 		delta = 0,
-        scrollThreshold = 5,
+        scrollThreshold = 1,
         actual = 1,
         animating = false,
         body = $('body');
@@ -40,14 +40,14 @@ jQuery(document).ready(function($){
 		// });
 
 
-		$(window).bind('mousewheel DOMMouseScroll', function(event){
-		    if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
-		        prevSection();
-		    }
-		    else {
-		        nextSection();
-		    }
-		});
+		// $(window).bind('mousewheel DOMMouseScroll', function(event){
+		//     if (event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0) {
+		//         prevSection();
+		//     }
+		//     else {
+		//         nextSection();
+		//     }
+		// });
 
 
 		$('#down').on('click',nextSection)		

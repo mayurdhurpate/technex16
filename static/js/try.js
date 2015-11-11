@@ -178,6 +178,8 @@ function setTop(dir) {
 		break;
 		default: break;
 		}
+		if (card.css('top')=='0px') 
+			card.css('top','100vh');
 	}
 	else{
 		switch(pos){

@@ -35,5 +35,5 @@ urlpatterns = patterns('',
     url(r'^exhibitions/$', hello.views.exhibitions, name='exhibitions'),
     url(r'^intellecx/$', hello.views.intellecx, name='intellecx'),
     url(r'^campus_ambassdor/$', hello.views.campus_ambassdor, name='campus_ambassdor'),
-    url(r'^(?P<email_slug>[\w\-]+)/$',hello.views.dashboard,name='dashboard'),
+    # url(r'^(?P<email_slug>[\w\-]+)/$',hello.views.dashboard,name='dashboard'),
 )

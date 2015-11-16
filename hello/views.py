@@ -506,7 +506,7 @@ def intellecx(request):
     return render_to_response('comingSoon.html',{},RequestContext(request))
 
 def campus_ambassdor(request):
-    return render_to_response('comingSoon.html',{},RequestContext(request))
+    return HttpResponseRedirect('http://2015.technex.in/campus_ambassador_registration/')
 #def events(request):
 #    events=Event.objects.all()
 #    return render(request,'events.html',{})

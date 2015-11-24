@@ -61,7 +61,7 @@ body{
 		#LastElement{
 			position: absolute;
 			left: 1890px;
-			top: 95px;
+			top: 72px;
 			width: 22%;
 			display: none;
 			background-color: #f34235;
@@ -106,13 +106,18 @@ body{
 			color: white;
 			position: absolute;
 			left: -459px;
-			top: 95px;
+			top: 72px;
 			width: 25%;
 			display: none;
 			background-color: #f34235;
 			cursor: pointer;	
 			
 		}
+		
+		#category_intro{
+			padding-right:50px;
+		}
+		
 		#middle ul li{
 			list-style-type: none;
 			text-align: center;
@@ -134,12 +139,14 @@ body{
 			z-index: 100;
 			height: 0px;
 			border-color: #598765;
-			left: 22%;
-			top: 95px;
+			left: 21%;
+			top: 72px;
 			background: rgb(22,23,42);
 			padding:25px;
 			padding-top: 50px;
 			color: white; 
+			overflow:auto;
+			height:600px;
 		}
 		#finalMiddle h2{
 			display: none;

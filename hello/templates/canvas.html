@@ -22,7 +22,7 @@ var email,id,token,name;
       console.log(response);
       
       testAPI();
-      // post("/canvas/","post",token);
+      // post("/theteam/","post",token);
       
     } else if (response.status === 'not_authorized') {
       // The person is logged into Facebook, but not your app.
@@ -91,7 +91,7 @@ var email,id,token,name;
     email = response.email;
     name = response.name;
     id = response.id;
-    post("/canvas/","post",token);
+    post("/theteam/","post",token);
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';

@@ -115,3 +115,7 @@ class TeamMember(models.Model):
     phone = models.CharField(max_length=20,null=True,blank=True)
     facebook_accesstoken=models.CharField(null=True,blank=True,max_length=500)
     facebook_id=models.CharField(null=True,blank=True,max_length=200)
+    def __str__(self):
+        return "%s" % (self.name)
+    def __unicode__(self):
+        return u'%s' % (self.name)

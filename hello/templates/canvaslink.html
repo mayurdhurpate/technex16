@@ -7,7 +7,7 @@
 <body>
 	<form method="post" action="/canvaslink/">{% csrf_token %}
 		<textarea rows="4" cols="50" name="link" ></textarea><br>
-		<input name="passkey"><br>
+		<input name="passkey" type="password"><br><br>
 		<button type="submit">Submit</button>
 	</form>
 	

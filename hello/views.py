@@ -5,6 +5,7 @@ from .models import Greeting
 from django.template import RequestContext
 import collections
 import json
+from django.views.decorators.csrf import csrf_exempt
 # import urllib2
 # Create your views here.
 def index(request):
@@ -513,4 +514,9 @@ def campus_ambassdor(request):
 
 #def event(request,event_slug):
 #    event=Event.objects.get(slug=event_slug)
+
+@csrf_exempt
+def canvas(request):
+    return render_to_response('canvas.html',{},RequestContext(request))
+
 

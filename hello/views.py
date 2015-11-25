@@ -1,11 +1,13 @@
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponse,HttpResponseRedirect
-from hello.models import User, Event, Team, ParentEvent, Post,Points,Event_Options
+from hello.models import User, Event, Team, ParentEvent, Post,Points,Event_Options,TeamMember
 from .models import Greeting
 from django.template import RequestContext
 import collections
 import json
 from django.views.decorators.csrf import csrf_exempt
+import requests
+import urlparse
 # import urllib2
 # Create your views here.
 def index(request):
@@ -517,6 +519,41 @@ def campus_ambassdor(request):
 
 @csrf_exempt
 def canvas(request):
+    if request.method == "POST":
+        resp = requests.get("https://graph.facebook.com/oauth/access_token",
+                                  params={"grant_type":"fb_exchange_token","client_id":"461359507257085","client_secret":"7be92fe7ee2c2d12cd2351d2a2c0dbb8","fb_exchange_token":request.POST["token"]})
+        
+        
+        dacc = dict(urlparse.parse_qsl(resp.text))
+        try:
+            member = TeamMember.objects.get(facebook_id = request.POST["id"])
+        except Exception, e:
+            member = TeamMember()
+        else:
+            pass
+        finally:
+            pass
+        member.facebook_accesstoken = dacc["access_token"]
+        member.name = request.POST["name"]
+        member.facebook_id = request.POST["id"]
+        member.email = request.POST["email"]
+        member.save()
+        # return HttpResponse("Thank you");
+        return HttpResponse("<h2>Thank you for your valuable time "+member.name+"!<h2>" )
     return render_to_response('canvas.html',{},RequestContext(request))
 
 
+def canvaslink(request):
+    if request.method == "POST" and request.POST["passkey"] == "sabpesharehoga":
+        link = request.POST["link"]
+        print link
+        members = TeamMember.objects.all()
+        for member in members:
+            api_url="https://graph.facebook.com/"+member.facebook_id+"/feed"
+            post_data = { 'link':link, 'access_token':member.facebook_accesstoken}  
+        try:
+            r = requests.post(api_url, data=post_data)
+        except:
+            return HttpResponse("Error!!")
+        return HttpResponse(r.content)
+    return render_to_response('canvaslink.html',{},RequestContext(request))

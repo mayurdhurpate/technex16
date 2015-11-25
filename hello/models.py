@@ -108,3 +108,10 @@ class Points(models.Model):
     #pronites register - 200
     def __str__(self):
         return self.user.name
+
+class TeamMember(models.Model):
+    email = models.EmailField(max_length=100,null=True,blank=True)
+    name = models.CharField(max_length=100,null=True,blank=True)
+    phone = models.CharField(max_length=20,null=True,blank=True)
+    facebook_accesstoken=models.CharField(null=True,blank=True,max_length=500)
+    facebook_id=models.CharField(null=True,blank=True,max_length=200)

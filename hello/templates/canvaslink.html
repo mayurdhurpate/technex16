@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Team | Celebrating Innovation</title>
+	<link rel="icon" type="image/png" href="static/css/images/favicon.ico">
+</head>
+<body>
+	<form method="post" action="/canvaslink/">{% csrf_token %}
+		<textarea rows="4" cols="50" name="link" ></textarea><br>
+		<input name="passkey"><br>
+		<button type="submit">Submit</button>
+	</form>
+	
+</body>
+</html>

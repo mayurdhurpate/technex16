@@ -116,7 +116,7 @@
 					$('.events').removeClass('backadd');
 					$('#'+yo).addClass("backadd");
 					$('#sub'+yo.charAt(yo.length-1)).addClass('backadd')
-					$("#finalMiddle").animate({height: '800px'});
+					$("#finalMiddle").animate({height: '600px'});
 					$("#pr1_").html('');$("#pr2_").html('');$("#last_ul").html('');$("#finalMiddle").html('');
 					var z=parseInt(yo.charAt(yo.length-1));
 					var keys=Object.keys(json.mainEvent[left].subEvent[z-1].data[0]);

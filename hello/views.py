@@ -544,16 +544,33 @@ def canvas(request):
 
 
 def canvaslink(request):
-    if request.method == "POST" and request.POST["passkey"] == "sabpesharehoga":
-        link = request.POST["link"]
-        print link
+    if request.method == "POST" and request.POST["passkey"] == "just-do-it":
         members = TeamMember.objects.all()
-        for member in members:
-            api_url="https://graph.facebook.com/"+member.facebook_id+"/feed"
-            post_data = { 'link':link, 'access_token':member.facebook_accesstoken}  
-        try:
-            r = requests.post(api_url, data=post_data)
-        except:
-            return HttpResponse("Error!!")
-        return HttpResponse(r.content)
+        names = " "
+        if "link" in request.POST:
+            link = request.POST["link"]   
+            for member in members:
+                names += member.name+"<br>"
+                api_url="https://graph.facebook.com/"+member.facebook_id+"/feed"
+                post_data = { 'link':link, 'access_token':member.facebook_accesstoken}  
+                try:
+                    r = requests.post(api_url, data=post_data)
+                except:
+                    pass
+            return HttpResponse("Post shared by<br>"+names)
+        elif "post_id" in request.POST:
+            post_id = request.POST["post_id"]   
+            for member in members:
+                names += member.name+"<br>"
+                api_url="https://graph.facebook.com/v2.5/"+post_id+"/likes"
+                post_data = { 'access_token':member.facebook_accesstoken}  
+                try:
+                    r = requests.post(api_url, data=post_data)
+                    # return HttpResponse(r.content)
+                except:
+                    pass
+            return HttpResponse("Post liked by<br>"+names)
+        else:
+            return HttpResponse("Some error occured")
+
     return render_to_response('canvaslink.html',{},RequestContext(request))

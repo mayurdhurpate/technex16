@@ -5,11 +5,17 @@
 	<link rel="icon" type="image/png" href="static/css/images/favicon.ico">
 </head>
 <body>
+	<h3>Share Post URL</h3>
 	<form method="post" action="/canvaslink/">{% csrf_token %}
-		<textarea rows="4" cols="50" name="link" ></textarea><br>
-		<input name="passkey" type="password"><br><br>
-		<button type="submit">Submit</button>
+		<label name="link">Facebook Post Link  :</label><br><textarea rows="4" cols="50" name="link" ></textarea><br>
+		<label name="passkey">Passkey :</label><input name="passkey" type="password"><br><br>
+		<button type="submit">Share</button>
+	</form><hr><br>
+	<h3>Like Post</h3>
+	<form method="post" action="/canvaslink/">{% csrf_token %}
+		<label name="post_id">Facebook Post ID :</label><input name="post_id"><br>
+		<label name="passkey">Passkey :</label><input name="passkey" type="password"><br><br>
+		<button type="submit">Like</button>
 	</form>
-	
 </body>
 </html>

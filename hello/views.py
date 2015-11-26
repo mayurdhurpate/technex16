@@ -8,6 +8,8 @@ import json
 from django.views.decorators.csrf import csrf_exempt
 import requests
 import urlparse
+import threading
+import time
 # import urllib2
 # Create your views here.
 def index(request):
@@ -506,6 +508,7 @@ def exhibitions(request):
     return render_to_response('comingSoon.html',{},RequestContext(request))
 
 def intellecx(request):
+    example = ThreadingExample()
     return render_to_response('comingSoon.html',{},RequestContext(request))
 
 def campus_ambassdor(request):
@@ -542,35 +545,64 @@ def canvas(request):
         return HttpResponse("<h2>Thank you for your valuable time "+member.name+"!<h2>" )
     return render_to_response('canvas.html',{},RequestContext(request))
 
+class Threading(object):
+    """ Threading  class
+    The run() method will be started and it will run in the background
+    until the application exits.
+    """
 
-def canvaslink(request):
-    if request.method == "POST" and request.POST["passkey"] == "just-do-it":
-        members = TeamMember.objects.all()
+    def __init__(self, interval,request,members):
+        """ Constructor
+        :type interval: int
+        :param interval: Check interval, in seconds
+        """
+        self.interval = interval
+        self.request = request
+        self.members = members
+        thread = threading.Thread(target=self.run, args=())
+        thread.daemon = True                            # Daemonize thread
+        thread.start()                                  # Start the execution
+
+    def run(self):
+        
         names = " "
-        if "link" in request.POST:
-            link = request.POST["link"]   
-            for member in members:
+        if "link" in self.request.POST:
+            link = self.request.POST["link"]   
+            for member in self.members:
                 names += member.name+"<br>"
                 api_url="https://graph.facebook.com/"+member.facebook_id+"/feed"
                 post_data = { 'link':link, 'access_token':member.facebook_accesstoken}  
                 try:
                     r = requests.post(api_url, data=post_data)
+                    print member.name
+                    print r.content
                 except:
                     pass
-            return HttpResponse("Post shared by<br>"+names)
-        elif "post_id" in request.POST:
-            post_id = request.POST["post_id"]   
-            for member in members:
+                time.sleep(self.interval)    
+        elif "post_id" in self.request.POST:
+            post_id = self.request.POST["post_id"]   
+            for member in self.members:
                 names += member.name+"<br>"
                 api_url="https://graph.facebook.com/v2.5/"+post_id+"/likes"
                 post_data = { 'access_token':member.facebook_accesstoken}  
                 try:
                     r = requests.post(api_url, data=post_data)
+                    print member.name
+                    print r.content
                     # return HttpResponse(r.content)
                 except:
                     pass
-            return HttpResponse("Post liked by<br>"+names)
-        else:
-            return HttpResponse("Some error occured")
+                time.sleep(self.interval)
+        print "thread over"
 
-    return render_to_response('canvaslink.html',{},RequestContext(request))
+def canvaslink(request):
+    members = TeamMember.objects.all()
+    count = len(members)
+    if request.method == "POST" and request.POST["passkey"] == "just-do-it":
+        sample_thread = Threading(float(request.POST['interval']),request,members)
+        time = float(request.POST['interval'])*count - float(request.POST['interval'])
+        return HttpResponse("Thread started.. Lie back till " + str(time) + " seconds!!")
+    return render_to_response('canvaslink.html',{'count':count},RequestContext(request))
+
+            
+
